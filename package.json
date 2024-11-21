@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@types/react-router-dom": "^5.3.3",
-    "express": "^4.21.1",
-    "mongoose": "^8.8.1"
-  }
-}
