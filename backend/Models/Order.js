@@ -10,9 +10,10 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
-    sauces: [{
-        type: String
-    }],
+    sauce: {
+        type: String,
+        required: true
+    },
     drink: {
         type: String,
         required: true
@@ -26,8 +27,6 @@ const OrderSchema = new Schema({
         type: Date,
         default: Date.now
     }
-}, {
-    timestamps: true
 });
 
 const OrderModel = mongoose.model('Order', OrderSchema);

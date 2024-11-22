@@ -52,17 +52,17 @@ const Dashboard = () => {
     }
   };
 
-  // Get only completed orders
+  
   const completedOrders = orders.filter(order => order.status === 'completed');
 
-  // Group orders by date
+ 
   const ordersByDate = completedOrders.reduce((acc, order) => {
     const date = new Date(order.date).toLocaleDateString();
     acc[date] = (acc[date] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
 
-  // Sort dates for chronological display
+ 
   const sortedDates = Object.keys(ordersByDate).sort((a, b) => 
     new Date(a).getTime() - new Date(b).getTime()
   );
