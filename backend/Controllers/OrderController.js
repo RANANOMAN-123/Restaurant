@@ -1,12 +1,15 @@
+
+
+
 const OrderModel = require('../Models/Order');
 
 const createOrder = async (req, res) => {
     try {
-        const { id, product, sauces, drink } = req.body;
+        const { id, product, sauce, drink } = req.body;
         const order = new OrderModel({
             id,
             product,
-            sauces,
+            sauce,
             drink,
             status: 'pending',
             date: new Date()
@@ -27,8 +30,7 @@ const createOrder = async (req, res) => {
 
 const getOrders = async (req, res) => {
     try {
-        const orders = await OrderModel.find()
-            .sort({ date: -1 });
+        const orders = await OrderModel.find().sort({ date: -1 });
         res.status(200).json({
             success: true,
             orders
@@ -52,13 +54,6 @@ const updateOrderStatus = async (req, res) => {
             { new: true }
         );
 
-        if (!updatedOrder) {
-            return res.status(404).json({
-                success: false,
-                message: "Order not found"
-            });
-        }
-
         res.status(200).json({
             success: true,
             message: "Order status updated successfully",
@@ -72,41 +67,9 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
-const getOrderStats = async (req, res) => {
-    try {
-        const stats = await OrderModel.aggregate([
-            {
-                $match: { status: 'completed' }
-            },
-            {
-                $group: {
-                    _id: {
-                        $dateToString: { format: "%Y-%m-%d", date: "$date" }
-                    },
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $sort: { "_id": 1 }
-            }
-        ]);
-
-        res.status(200).json({
-            success: true,
-            stats
-        });
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: "Failed to fetch order statistics"
-        });
-    }
-};
-
 const getProductCounts = async (req, res) => {
     try {
         const completedOrders = await OrderModel.find({ status: 'completed' });
-        
         const productCounts = {
             Pizza: 15,
             Burger: 15,
@@ -137,6 +100,5 @@ module.exports = {
     createOrder,
     getOrders,
     updateOrderStatus,
-    getOrderStats,
-    getProductCounts,
+    getProductCounts
 };

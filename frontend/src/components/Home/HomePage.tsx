@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {homePage} from '../../common/constants';
+import { homePage } from '../../common/constants';
 
 interface ProductCounts {
   [key: string]: number;
@@ -71,13 +71,13 @@ const HomePage = () => {
     <div className="ml-64 min-h-screen bg-gray-100">
       <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white py-10 px-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-5xl font-bold mb-4">{homePage.homepageHeading }</h1>
+          <h1 className="text-5xl font-bold mb-4">{homePage.homepageHeading}</h1>
           <p className="text-xl">{homePage.newHeading}</p>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto py-12 px-8">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800">{homePage.products }</h2>
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">{homePage.products}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {foodItems.map((item) => (
             <div
