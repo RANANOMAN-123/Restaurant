@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { dashboard } from '../../common/constants';
+import { dashboard } from '../common/constants';
 
 ChartJS.register(
   CategoryScale,
@@ -52,18 +52,19 @@ const Dashboard = () => {
     }
   };
 
-  
+
   const completedOrders = orders.filter(order => order.status === 'completed');
 
- 
+
   const ordersByDate = completedOrders.reduce((acc, order) => {
     const date = new Date(order.date).toLocaleDateString();
     acc[date] = (acc[date] || 0) + 1;
+    
     return acc;
   }, {} as Record<string, number>);
 
- 
-  const sortedDates = Object.keys(ordersByDate).sort((a, b) => 
+
+  const sortedDates = Object.keys(ordersByDate).sort((a, b) =>
     new Date(a).getTime() - new Date(b).getTime()
   );
 
@@ -101,8 +102,8 @@ const Dashboard = () => {
 
   return (
     <div className="ml-64 p-8">
-      <h1 className="text-3xl font-bold mb-8">{dashboard.dashbardHeading }</h1>
-      
+      <h1 className="text-3xl font-bold mb-8">{dashboard.dashbardHeading}</h1>
+
       <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
         <h2 className="text-xl font-semibold mb-4">{dashboard.totalOrders} {completedOrders.length}</h2>
       </div>

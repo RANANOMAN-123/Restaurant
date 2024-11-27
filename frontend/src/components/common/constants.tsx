@@ -40,7 +40,7 @@ export const generateOrder = {
     generateorderHeading: "Generate Order",
     selectProduct: "Select a product",
     selectSauce: "Select a sauce",
-    selectedSauces: "Selected sauces:",
+    selectSauces: "Select sauce:",
     remove: "Remove",
     drink: "Select a drink",
     selectedProduct: "Product",
@@ -48,15 +48,17 @@ export const generateOrder = {
     selectedDrink: "Drink",
     orderPlace: "Place Order",
     next: "Next",
-    previous: "Previous"
+    previous: "Previous",
+    selectproduct: "select product",
+    selectDrink:"Select  drink"
 }
 
 export const orderhistory = {
     mainHeading: "Order History",
-    historyProduct: "Product",
-    historySauces: "Sauces",
-    historyDrink: "Drink",
-    historyDate: "Date",
+    historyProduct: "Product:",
+    historySauces: "Sauce:",
+    historyDrink: "Drink:",
+    historyDate: "Date:",
     completeOrder: "Complete Order",
     rejectOrder: "Reject Order"
 }

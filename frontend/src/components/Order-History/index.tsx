@@ -3,6 +3,7 @@
 
 
 import React, { useState, useEffect } from 'react';
+import { orderhistory } from '../common/constants';
 
 interface Order {
   _id: string;
@@ -57,25 +58,24 @@ const OrderHistory = () => {
 
   return (
     <div className="ml-64 p-8">
-      <h1 className="text-3xl font-bold mb-8">Order History</h1>
+      <h1 className="text-3xl font-bold mb-8">{orderhistory.mainHeading}</h1>
       <div className="space-y-4">
         {orders.map(order => (
           <div key={order._id} className="bg-white p-4 rounded-lg shadow">
             <div className="flex justify-between items-center">
               <h3 className="font-bold">Order #{order._id}</h3>
-              <span className={`px-2 py-1 rounded ${
-                order.status === 'completed' ? 'bg-green-100' :
-                order.status === 'rejected' ? 'bg-red-100' :
-                'bg-yellow-100'
-              }`}>
+              <span className={`px-2 py-1 rounded ${order.status === 'completed' ? 'bg-green-100' :
+                  order.status === 'rejected' ? 'bg-red-100' :
+                    'bg-yellow-100'
+                }`}>
                 {order.status}
               </span>
             </div>
             <div className="mt-2">
-              <p>Product: {order.product}</p>
-              <p>Sauce: {order.sauce}</p>
-              <p>Drink: {order.drink}</p>
-              <p>Date: {new Date(order.date).toLocaleDateString()}</p>
+              <p>{orderhistory.historyProduct} {order.product}</p>
+              <p>{orderhistory.historySauces} {order.sauce}</p>
+              <p>{orderhistory.historyDrink} {order.drink}</p>
+              <p>{orderhistory.historyDate} {new Date(order.date).toLocaleDateString()}</p>
             </div>
             {order.status === 'pending' && (
               <div className="mt-4">
@@ -83,13 +83,13 @@ const OrderHistory = () => {
                   onClick={() => handleOrderStatus(order._id, 'completed')}
                   className="bg-green-500 text-white px-4 py-1 rounded mr-2"
                 >
-                  Complete
+                  {orderhistory.completeOrder}
                 </button>
                 <button
                   onClick={() => handleOrderStatus(order._id, 'rejected')}
                   className="bg-red-500 text-white px-4 py-1 rounded"
                 >
-                  Reject
+                  {orderhistory.rejectOrder}
                 </button>
               </div>
             )}

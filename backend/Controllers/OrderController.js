@@ -2,6 +2,7 @@
 
 
 const OrderModel = require('../Models/Order');
+const ProductModel = require('../Models/Product');
 
 const createOrder = async (req, res) => {
     try {
@@ -54,6 +55,14 @@ const updateOrderStatus = async (req, res) => {
             { new: true }
         );
 
+        if (status === 'completed') {
+            const product = await ProductModel.findOne({ name: updatedOrder.product });
+            if (product) {
+                product.availableCount = Math.max(0, product.availableCount - 1);
+                await product.save();
+            }
+        }
+
         res.status(200).json({
             success: true,
             message: "Order status updated successfully",
@@ -69,20 +78,22 @@ const updateOrderStatus = async (req, res) => {
 
 const getProductCounts = async (req, res) => {
     try {
+        const products = await ProductModel.find();
+        const productCounts = {};
+        
+        products.forEach(product => {
+            productCounts[product.name] = product.availableCount;
+        });
+
         const completedOrders = await OrderModel.find({ status: 'completed' });
-        const productCounts = {
-            Pizza: 15,
-            Burger: 15,
-            Sandwich: 15,
-            Shawarma: 15,
-            Pasta: 15
-        };
 
         completedOrders.forEach(order => {
             if (productCounts[order.product]) {
-                productCounts[order.product] -= 1;
+                productCounts[order.product] = Math.max(0, productCounts[order.product]-1);
             }
         });
+        
+
 
         res.status(200).json({
             success: true,

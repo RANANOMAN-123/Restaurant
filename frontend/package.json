@@ -11,14 +11,17 @@
     "chart.js": "^4.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "formik": "^2.4.6",
     "mongoose": "^8.8.1",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.13",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
