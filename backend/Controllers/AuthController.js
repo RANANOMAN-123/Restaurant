@@ -6,7 +6,10 @@ const signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = await UserModel.findOne({ email });
-    if (user) {
+
+
+
+      if (user) {
       return res.status(409).json({
         message: "User already exists, you can login",
         success: false
@@ -50,7 +53,11 @@ const login = async (req, res) => {
     }
 
     const jwtToken = jwt.sign(
-      { email: user.email, id: user._id },
+      {
+        email: user.email,
+        id: user._id,
+        isAdmin: user.isAdmin
+      },
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
@@ -60,7 +67,8 @@ const login = async (req, res) => {
       success: true,
       jwtToken,
       email,
-      name: user.name
+      name: user.name,
+      isAdmin: user.isAdmin
     });
   } catch (err) {
     res.status(500).json({
@@ -74,3 +82,5 @@ module.exports = {
   signup,
   login
 };
+
+    
