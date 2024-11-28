@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { sideNav } from '../common/constants';
+import { sideNav } from '../../common/constants';
 const SideNav = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -16,13 +16,12 @@ const SideNav = () => {
                 <h3 className="text-3xl font-bold mb-10 text-black-500">{sideNav.restaurantName}</h3>
                 <nav className="space-y-6">
                     <NavLink to="/Home" className={({ isActive }) =>
-                        `flex items-center p-4 rounded-lg transition-all duration-200 ${
-                            isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
+                        `flex items-center p-4 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
                         }`
                     }>
-                        <span className="text-lg">{sideNav.home}</span> 
+                        <span className="text-lg">{sideNav.home}</span>
                     </NavLink>
-                    {user.isAdmin && (  
+                    {user.isAdmin && (
                         <>
                             {/* <NavLink to="/add-product" className={({ isActive }) =>
                                 `flex items-center p-4 rounded-lg transition-all duration-200 ${
@@ -32,8 +31,7 @@ const SideNav = () => {
                                 <span className="text-lg">Add Product</span>
                             </NavLink> */}
                             <NavLink to="/restock" className={({ isActive }) =>
-                                `flex items-center p-4 rounded-lg transition-all duration-200 ${
-                                    isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
+                                `flex items-center p-4 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
                                 }`
                             }>
                                 <span className="text-lg">Restock</span>
@@ -41,22 +39,19 @@ const SideNav = () => {
                         </>
                     )}
                     <NavLink to="/dashboard" className={({ isActive }) =>
-                        `flex items-center p-4 rounded-lg transition-all duration-200 ${
-                            isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
+                        `flex items-center p-4 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
                         }`
                     }>
                         <span className="text-lg">{sideNav.dashboard}</span>
                     </NavLink>
                     <NavLink to="/generate-order" className={({ isActive }) =>
-                        `flex items-center p-4 rounded-lg transition-all duration-200 ${
-                            isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
+                        `flex items-center p-4 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
                         }`
                     }>
                         <span className="text-lg">{sideNav.geneateOrder}</span>
                     </NavLink>
                     <NavLink to="/order-history" className={({ isActive }) =>
-                        `flex items-center p-4 rounded-lg transition-all duration-200 ${
-                            isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
+                        `flex items-center p-4 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
                         }`
                     }>
                         <span className="text-lg">{sideNav.orderHistory}</span>

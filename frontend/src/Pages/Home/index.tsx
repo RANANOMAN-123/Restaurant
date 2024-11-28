@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { homePage } from '../common/constants';
+import { homePage } from '../../common/constants';
 
 interface Product {
     _id: string;

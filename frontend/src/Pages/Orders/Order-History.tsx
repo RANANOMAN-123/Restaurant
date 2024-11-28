@@ -3,7 +3,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { orderhistory } from '../common/constants';
+import { orderhistory } from '../../common/constants';
 
 interface Order {
   _id: string;
@@ -65,8 +65,8 @@ const OrderHistory = () => {
             <div className="flex justify-between items-center">
               <h3 className="font-bold">Order #{order._id}</h3>
               <span className={`px-2 py-1 rounded ${order.status === 'completed' ? 'bg-green-100' :
-                  order.status === 'rejected' ? 'bg-red-100' :
-                    'bg-yellow-100'
+                order.status === 'rejected' ? 'bg-red-100' :
+                  'bg-yellow-100'
                 }`}>
                 {order.status}
               </span>

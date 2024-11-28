@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { dashboard } from '../common/constants';
+import { dashboard } from '../../common/constants';
 
 ChartJS.register(
   CategoryScale,
@@ -59,7 +59,7 @@ const Dashboard = () => {
   const ordersByDate = completedOrders.reduce((acc, order) => {
     const date = new Date(order.date).toLocaleDateString();
     acc[date] = (acc[date] || 0) + 1;
-    
+
     return acc;
   }, {} as Record<string, number>);
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { restock } from '../../common/constants';
 
 interface Product {
     _id: string;
@@ -52,7 +53,7 @@ const RestockPage = () => {
 
     return (
         <div className="ml-64 p-8">
-            <h1 className="text-3xl font-bold mb-8">Restock Products</h1>
+            <h1 className="text-3xl font-bold mb-8">{restock.restockProducts }</h1>
             <div className="grid gap-6">
                 {zeroStockProducts.map(product => (
                     <div key={product._id} className="bg-white p-6 rounded-lg shadow-lg">
@@ -73,14 +74,14 @@ const RestockPage = () => {
                                         <Field
                                             type="number"
                                             name="count"
-                                            className="w-32 p-2 border rounded"
-                                            min="1"
+                                             className="w-32 p-2 border rounded"
+                                             min="1"
                                         />
                                         <button
                                             type="submit"
                                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                                         >
-                                            Update Stock
+                                            {restock.updatetock}
                                         </button>
                                     </Form>
                                 </Formik>
@@ -89,7 +90,7 @@ const RestockPage = () => {
                     </div>
                 ))}
                 {zeroStockProducts.length === 0 && (
-                    <p className="text-center text-gray-600">No products need restocking</p>
+                    <p className="text-center text-gray-600">{restock.noProducts }</p>
                 )}
             </div>
         </div>
