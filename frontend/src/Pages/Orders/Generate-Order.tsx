@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { generateOrder } from '../common/constants';
+import { generateOrder } from '../../common/constants';
 
 interface OrderDetails {
   product: string;
@@ -81,12 +81,12 @@ const GenerateOrder = () => {
             <select
               className="w-full p-2 border rounded"
               value={orderDetails.product}
-              onChange={(e) => setOrderDetails({...orderDetails, product: e.target.value})}
+              onChange={(e) => setOrderDetails({ ...orderDetails, product: e.target.value })}
             >
               <option value="">{generateOrder.selectProduct}</option>
               {products.map(product => (
-                <option 
-                  key={product._id} 
+                <option
+                  key={product._id}
                   value={product.name}
                 >
                   {product.name} ({product.availableCount} available)

@@ -62,3 +62,18 @@ export const orderhistory = {
     completeOrder: "Complete Order",
     rejectOrder: "Reject Order"
 }
+
+export const addproduct = {
+    newProduct: "Add New Product",
+    productName: "Product Name",
+    imageURL:"Image URL",
+    description:"Description",
+    availableCount:"Available Count",
+    addProduct1: "Add Product",
+}
+
+export const restock = {
+    restockProducts:"Restock Products",
+    updatetock:"Update Stock",
+    noProducts:"No products need restocking",
+}

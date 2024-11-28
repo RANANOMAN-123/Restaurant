@@ -2,6 +2,8 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { addproduct } from '../../common/constants';
+
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Product name is required'),
@@ -43,7 +45,7 @@ const AddProduct = () => {
 
     return (
         <div className="ml-64 p-8">
-            <h1 className="text-3xl font-bold mb-8">Add New Product</h1>
+            <h1 className="text-3xl font-bold mb-8">{ addproduct.newProduct}</h1>
             <div className="bg-white p-6 rounded-lg shadow-lg">
                 <Formik
                     initialValues={{ 
@@ -58,7 +60,7 @@ const AddProduct = () => {
                     {({ isSubmitting }) => (
                         <Form className="space-y-4">
                             <div>
-                                <label className="block mb-2">Product Name</label>
+                                <label className="block mb-2">{addproduct.productName }</label>
                                 <Field
                                     type="text"
                                     name="name"
@@ -66,9 +68,9 @@ const AddProduct = () => {
                                 />
                                 <ErrorMessage name="name" component="div" className="text-red-500" />
                             </div>
-
-                            <div>
-                                <label className="block mb-2">Image URL</label>
+ 
+                             <div>
+                                <label className="block mb-2">{addproduct.imageURL}</label>
                                 <Field
                                     type="text"
                                     name="imageUrl"
@@ -78,7 +80,7 @@ const AddProduct = () => {
                             </div>
 
                             <div>
-                                <label className="block mb-2">Description</label>
+                                <label className="block mb-2">{ addproduct.description}</label>
                                 <Field
                                     as="textarea"
                                     name="description"
@@ -89,7 +91,7 @@ const AddProduct = () => {
                             </div>
 
                             <div>
-                                <label className="block mb-2">Available Count</label>
+                                <label className="block mb-2">{ addproduct.availableCount}</label>
                                 <Field
                                     type="number"
                                     name="availableCount"
@@ -103,7 +105,7 @@ const AddProduct = () => {
                                 disabled={isSubmitting}
                                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                             >
-                                Add Product
+                                {addproduct.addProduct1}
                             </button>
                         </Form>
                     )}
