@@ -89,7 +89,7 @@ const GenerateOrder = () => {
                   key={product._id}
                   value={product.name}
                 >
-                  {product.name} ({product.availableCount} available)
+                  {product.name} 
                 </option>
               ))}
             </select>

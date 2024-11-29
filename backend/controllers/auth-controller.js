@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const UserModel = require('../Models/User');
+const UserModel = require('../models/user');
 
 const signup = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const signup = async (req, res) => {
 
 
 
-      if (user) {
+    if (user) {
       return res.status(409).json({
         message: "User already exists, you can login",
         success: false
@@ -83,4 +83,3 @@ module.exports = {
   login
 };
 
-    

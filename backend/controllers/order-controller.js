@@ -1,9 +1,10 @@
 
 
 
-const OrderModel = require('../Models/Order');
-const ProductModel = require('../Models/Product');
+const OrderModel = require('../models/order');
+const ProductModel = require('../models/product');
 
+//create order in generateorder
 const createOrder = async (req, res) => {
     try {
         const { id, product, sauce, drink } = req.body;
@@ -28,7 +29,7 @@ const createOrder = async (req, res) => {
         });
     }
 };
-
+//used in order history & dashboard
 const getOrders = async (req, res) => {
     try {
         const orders = await OrderModel.find().sort({ date: -1 });
@@ -44,11 +45,14 @@ const getOrders = async (req, res) => {
     }
 };
 
+
+
+//update order status in order-history
 const updateOrderStatus = async (req, res) => {
     try {
         const { orderId } = req.params;
         const { status } = req.body;
-        
+
         const updatedOrder = await OrderModel.findByIdAndUpdate(
             orderId,
             { status },
@@ -80,18 +84,11 @@ const getProductCounts = async (req, res) => {
     try {
         const products = await ProductModel.find();
         const productCounts = {};
-        
+
         products.forEach(product => {
             productCounts[product.name] = product.availableCount;
         });
 
-        const completedOrders = await OrderModel.find({ status: 'completed' });
-
-        completedOrders.forEach(order => {
-            if (productCounts[order.product]) {
-                productCounts[order.product] = Math.max(0, productCounts[order.product]-1);
-            }
-        });
         
 
 
