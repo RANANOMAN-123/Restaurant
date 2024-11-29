@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { signup } from '../../common/constants';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import {signupvalidationSchema} from '../../common/Validation-Schema';
+import { signupvalidationSchema } from '../../common/validation-schema';
 
 interface SignupForm {
   name: string;

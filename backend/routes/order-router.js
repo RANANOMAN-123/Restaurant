@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const ensureAuthenticated = require('../Middlewares/Auth');
-const { 
-    createOrder, 
-    getOrders, 
-    updateOrderStatus, 
+const ensureAuthenticated = require('../middlewares/auth');
+const {
+    createOrder,
+    getOrders,
+    updateOrderStatus,
     getProductCounts
-} = require('../Controllers/OrderController');
+} = require('../controllers/order-controller');
 
 router.get('/product-counts', ensureAuthenticated, getProductCounts);
 router.post('/order', ensureAuthenticated, createOrder);

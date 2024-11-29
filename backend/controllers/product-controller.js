@@ -1,4 +1,4 @@
-const ProductModel = require('../Models/Product');
+const ProductModel = require('../models/product');
 
 const getAllProducts = async (req, res) => {
     try {
@@ -48,33 +48,12 @@ const getZeroStockProducts = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Failed to fetch zero stock products"
-        
+
         });
     }
 };
 
-// const createProduct = async (req, res) => {
-//     try {
-//         const { name, description, imageUrl, availableCount } = req.body;
-//         const product = new ProductModel({
-//             name,
-//             descriptiom,
-//             imageUrl,
-//             availableCount
-//         });
-//         await product.save();
-//         res.status(201).json({
-//             success: true,
-//             message: "Product created successfully",
-//             product
-//         });
-//     } catch (err) {
-//         res.status(500).json({
-//             success: false,
-//             message: "Failed to create product"
-//         });
-//     }
-// };
+
 
 module.exports = {
     getAllProducts,

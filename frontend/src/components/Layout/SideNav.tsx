@@ -23,13 +23,7 @@ const SideNav = () => {
                     </NavLink>
                     {user.isAdmin && (
                         <>
-                            {/* <NavLink to="/add-product" className={({ isActive }) =>
-                                `flex items-center p-4 rounded-lg transition-all duration-200 ${
-                                    isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
-                                }`
-                            }>
-                                <span className="text-lg">Add Product</span>
-                            </NavLink> */}
+                           
                             <NavLink to="/restock" className={({ isActive }) =>
                                 `flex items-center p-4 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-800'
                                 }`
