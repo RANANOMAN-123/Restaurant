@@ -3,9 +3,11 @@ import AppRoutes from './routes/app-routes';
 
 const App = () => {
   return (
+  
     <BrowserRouter>
       <AppRoutes />
-    </BrowserRouter>
+      </BrowserRouter>
+      
   );
 };
 

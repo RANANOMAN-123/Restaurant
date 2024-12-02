@@ -11,6 +11,7 @@ import HomePage from '../pages/home';
 import AddProduct from '../pages/product/add-product';
 import RestockPage from '../pages/product/restock-page';
 import AdminRoute from '../routes/admin-route';
+import EditProduct from '../pages/product/edit-product';
 
 
 
@@ -48,7 +49,7 @@ const AppRoutes = () => {
         }
       />
 
-<Route
+ <Route
   path="/add-product"
   element={
     <ProtectedRoute>
@@ -60,6 +61,8 @@ const AppRoutes = () => {
     </ProtectedRoute>
   }
       />
+
+  
       
       <Route
   path="/restock"
@@ -72,8 +75,35 @@ const AppRoutes = () => {
        </AdminRoute>
     </ProtectedRoute>
   }
-/>
+ />
 
+
+      
+
+<Route
+  path="/edit-product/:id"
+  element={
+    <ProtectedRoute>
+    <AdminRoute>
+      <MainLayout>
+        <EditProduct />
+        </MainLayout>
+        </AdminRoute>
+   
+    </ProtectedRoute>
+  }
+      />
+
+
+
+
+
+
+
+
+
+
+      
 
 
     <Route
