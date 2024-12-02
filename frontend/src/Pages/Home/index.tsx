@@ -85,7 +85,7 @@ const HomePage = () => {
                     {products.map((item) => (
                         <div
                             key={item._id}
-                            className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105"
+                            className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 h-104"
                         >
                             <div className="h-48 overflow-hidden">
                                 <img
@@ -95,8 +95,14 @@ const HomePage = () => {
                                 />
                             </div>
                             <div className="p-4">
-                                <h3 className="text-xl font-bold mb-2 text-gray-800">{item.name}</h3>
-                                <p className="text-sm text-gray-600">{item.description}</p>
+                                <h3 className="h-15 w-24  text-xl font-bold mb-2 text-gray-800">{item.name}</h3>
+                                <button
+            onClick={() => navigate(`/edit-product/${item._id}`)}
+            className=" absolute top-44 mt-8 right-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+        >
+            Edit
+        </button>
+                                <p className="text-sm text-gray-700 overflow-y-auto overflow-x-hidden max-h-14">{item.description}</p>
                                 <p className="text-lg font-semibold text-orange-500 mt-2">
                                     {homePage.available} {productCounts[item.name] || 0}
                                 </p>

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../common/constants';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { loginvalidationSchema } from '../../common/Validation-Schema';
+import { loginvalidationSchema } from '../../common/validation-schema';
 
 interface LoginForm {
   email: string;
@@ -47,17 +47,19 @@ const Login: React.FC = () => {
           JSON.stringify({
             email: data.email,
             name: data.name,
-            isAdmin: data.isAdmin, 
+            isAdmin: data.isAdmin,
           })
         );
 
         const from = location.state?.from?.pathname || '/home';
         navigate(from, { replace: true });
       } else {
+        alert(data.message);
         setErrors({ email: data.message });
       }
     } catch (error) {
-      setErrors({ email: 'Login failed. Please try again.' });
+      // setErrors({ email: 'Login failed. Please try again.' });
+      alert('Bad request');
     }
     setSubmitting(false);
   };
