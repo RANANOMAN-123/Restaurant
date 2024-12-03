@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const ensureAuthenticated = require('../middlewares/auth');
+const ensureAuthenticated = require('../middleware/Auth');
 const {
     createOrder,
     getOrders,

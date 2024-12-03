@@ -35,27 +35,49 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:8186/products/${id}`);
+                const response = await fetch(`http://localhost:8186/products/products/${id}`, {
+                    headers: {
+                        'Authorization': localStorage.getItem('token') || ''
+                    }
+                });
+
+                if (response.status === 403) {
+                    alert('Unauthorized: Admin access required');
+                    navigate('/home');
+                    return;
+                }
+
                 const data = await response.json();
                 if (data.success) {
-                    setInitialValues(data.product);
+                    setInitialValues({
+                        name: data.product.name,
+                        imageUrl: data.product.imageUrl,
+                        description: data.product.description,
+                        availableCount: data.product.availableCount
+                    });
+                } else {
+                    alert('Failed to fetch product details');
+                    navigate('/home');
                 }
             } catch (error) {
                 console.error('Failed to fetch product:', error);
+                navigate('/home');
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchProduct();
-    }, [id]);
+        if (id) {
+            fetchProduct();
+        }
+    }, [id, navigate]);
 
     const handleSubmit = async (
-        values: Product, // Define type for values
-        { setSubmitting }: FormikHelpers<Product> // Define type for setSubmitting
+        values: Product,
+        { setSubmitting }: FormikHelpers<Product>
     ) => {
         try {
-            const response = await fetch(`http://localhost:8186/products/${id}`, {
+            const response = await fetch(`http://localhost:8186/products/products/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,12 +86,17 @@ const EditProduct = () => {
                 body: JSON.stringify(values),
             });
 
+            if (response.status === 403) {
+                alert('Unauthorized: Admin access required');
+                navigate('/home');
+                return;
+            }
+
             if (response.ok) {
                 alert('Product updated successfully!');
                 navigate('/home');
             } else {
                 alert('Failed to update product.');
-                // Highlight or focus on the first field with error
                 document.getElementById('name')?.focus();
             }
         } catch (error) {

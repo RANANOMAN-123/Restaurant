@@ -34,6 +34,7 @@ const GenerateOrder = () => {
     try {
       const response = await fetch('http://localhost:8186/products/all', {
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': localStorage.getItem('token') || ''
         }
       });

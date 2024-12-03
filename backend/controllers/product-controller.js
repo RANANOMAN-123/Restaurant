@@ -95,13 +95,92 @@ const getZeroStockProducts = async (req, res) => {
     }
 };
 
+const getProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await ProductModel.findById(id);
+        
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            product
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch product"
+        });
+    }
+};
 
 
+
+    
 
 
 module.exports = {
     getAllProducts,
     addProduct,
     updateProduct,
-    getZeroStockProducts
+    getZeroStockProducts,
+    getProduct
 };
+
+
+
+
+// const addOrUpdateProduct = async (req, res) => {
+//     try {
+//         const { id } = req.params; // Optional: ID for updating an existing product
+//         const { name, description, imageUrl, availableCount } = req.body; // Data to add or update
+
+//         if (id) {
+//             // Update existing product
+//             const product = await ProductModel.findByIdAndUpdate(
+//                 id,
+//                 { name, description, imageUrl, availableCount },
+//                 { new: true } // Returns the updated document
+//             );
+
+//             if (!product) {
+//                 return res.status(404).json({
+//                     success: false,
+//                     message: "Product not found",
+//                 });
+//             }
+
+//             return res.status(200).json({
+//                 success: true,
+//                 message: "Product updated successfully",
+//                 product,
+//             });
+//         } else {
+//             // Add new product
+//             const product = new ProductModel({
+//                 name,
+//                 description,
+//                 imageUrl,
+//                 availableCount,
+//             });
+//             await product.save();
+
+//             return res.status(201).json({
+//                 success: true,
+//                 message: "Product added successfully",
+//                 product,
+//             });
+//         }
+//     } catch (err) {
+//         return res.status(500).json({
+//             success: false,
+//             message: "Failed to process request",
+//             error: err.message,
+//         });
+//     }
+// };
