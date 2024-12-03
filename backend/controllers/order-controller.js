@@ -80,6 +80,7 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
+//Stock counts
 const getProductCounts = async (req, res) => {
     try {
         const products = await ProductModel.find();

@@ -23,6 +23,7 @@ const HomePage = () => {
         try {
             const response = await fetch('http://localhost:8186/products/all', {
                 headers: {
+                    'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''
                 }
             });
@@ -39,6 +40,7 @@ const HomePage = () => {
         try {
             const response = await fetch('http://localhost:8186/orders/product-counts', {
                 headers: {
+                    'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''
                 }
             });
@@ -96,12 +98,14 @@ const HomePage = () => {
                             </div>
                             <div className="p-4">
                                 <h3 className="h-15 w-24  text-xl font-bold mb-2 text-gray-800">{item.name}</h3>
-                                <button
-            onClick={() => navigate(`/edit-product/${item._id}`)}
-            className=" absolute top-44 mt-8 right-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
-        >
-            Edit
-        </button>
+                                {user.isAdmin && (
+                                    <button
+                                        onClick={() => navigate(`/edit-product/${item._id}`)}
+                                        className="absolute top-44 mt-8 right-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                                    >
+                                        Edit
+                                    </button>
+                                )}
                                 <p className="text-sm text-gray-700 overflow-y-auto overflow-x-hidden max-h-14">{item.description}</p>
                                 <p className="text-lg font-semibold text-orange-500 mt-2">
                                     {homePage.available} {productCounts[item.name] || 0}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import SideNav from './sidenav';
+import SideNav from './SideNav';
 
 interface MainLayoutProps {
   children?: React.ReactNode;
