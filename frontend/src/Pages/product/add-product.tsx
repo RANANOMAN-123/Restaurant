@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { addproduct } from '../../common/constants';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 
 const validationSchema = Yup.object({
@@ -25,7 +26,7 @@ const AddProduct = () => {
         availableCount: number;
     }, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
         try {
-            const response = await fetch('http://localhost:8187/products/add', {
+            const response = await fetch(API_ENDPOINTS.ADD_PRODUCT, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

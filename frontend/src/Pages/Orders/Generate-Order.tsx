@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateOrder } from '../../common/constants';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 interface OrderDetails {
   product: string;
@@ -32,7 +33,7 @@ const GenerateOrder = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8187/products/all', {
+      const response = await fetch(API_ENDPOINTS.GET_ALL_PRODUCTS, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': localStorage.getItem('token') || ''
@@ -49,7 +50,7 @@ const GenerateOrder = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:8187/orders/order', {
+      const response = await fetch(API_ENDPOINTS.CREATE_ORDER, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

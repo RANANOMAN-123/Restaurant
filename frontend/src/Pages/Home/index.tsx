@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { homePage } from '../../common/constants';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 interface Product {
     _id: string;
@@ -21,7 +22,7 @@ const HomePage = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8187/products/all', {
+            const response = await fetch(API_ENDPOINTS.GET_ALL_PRODUCTS, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''
@@ -38,7 +39,7 @@ const HomePage = () => {
 
     const fetchProductCounts = async () => {
         try {
-            const response = await fetch('http://localhost:8187/orders/product-counts', {
+            const response = await fetch(API_ENDPOINTS.GET_PRODUCT_COUNTS, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''
