@@ -58,7 +58,7 @@ const HomePage = () => {
         await fetchProducts();
         await fetchProductCounts();
     };
-
+    //@typescript-eslint/no-unused-vars
     useEffect(() => {
         refreshData();
     }, []);
