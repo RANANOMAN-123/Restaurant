@@ -1,17 +1,17 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
-import Login from '../Pages/auth/Login';
-import Signup from '../Pages/auth/Signup';
+import Login from '../views/auth/Login';
+import Signup from '../views/auth/Signup';
 import MainLayout from '../components/layout/Main-Layout';
-import Dashboard from '../Pages/dash-board';
-import GenerateOrder from '../Pages/orders/Generate-Order';
-import OrderHistory from '../Pages/orders/Order-History';
+import Dashboard from '../views/dash-board';
+import GenerateOrder from '../views/orders/Generate-Order';
+import OrderHistory from '../views/orders/Order-History';
 import ProtectedRoute from './Private-routes';
-import HomePage from '../Pages/home';
-import AddProduct from '../Pages/product/add-product';
-import RestockPage from '../Pages/product/restock-page';
+import HomePage from '../views/home/index';
+import AddProduct from '../views/product/add-product';
+import RestockPage from '../views/product/restock-page';
 import AdminRoute from './admin-routes';
-import EditProduct from '../Pages/product/edit-product';
+import EditProduct from '../views/product/edit-product';
 
 
 const AppRoutes = () => {
