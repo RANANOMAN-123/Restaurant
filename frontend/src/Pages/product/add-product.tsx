@@ -25,7 +25,7 @@ const AddProduct = () => {
         availableCount: number;
     }, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
         try {
-            const response = await fetch('http://localhost:8186/products/add', {
+            const response = await fetch('http://localhost:8187/products/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

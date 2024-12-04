@@ -23,7 +23,7 @@ const OrderHistory = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:8186/orders/getdata', {
+      const response = await fetch('http://localhost:8187/orders/getdata', {
         headers: {
           'Authorization': localStorage.getItem('token') || ''
         }
@@ -39,7 +39,7 @@ const OrderHistory = () => {
 
   const handleOrderStatus = async (orderId: string, status: 'completed' | 'rejected') => {
     try {
-      const response = await fetch(`http://localhost:8186/orders/${orderId}/status`, {
+      const response = await fetch(`http://localhost:8187/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

@@ -21,7 +21,7 @@ const HomePage = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8186/products/all', {
+            const response = await fetch('http://localhost:8187/products/all', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''
@@ -38,7 +38,7 @@ const HomePage = () => {
 
     const fetchProductCounts = async () => {
         try {
-            const response = await fetch('http://localhost:8186/orders/product-counts', {
+            const response = await fetch('http://localhost:8187/orders/product-counts', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''

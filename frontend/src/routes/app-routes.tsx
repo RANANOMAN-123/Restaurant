@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
-import Login from '../Pages/auth/Llogin';
+import Login from '../Pages/auth/Login';
 import Signup from '../Pages/auth/Signup';
-import MainLayout from '../components/Layout/Main-Layout';
+import MainLayout from '../components/layout/Main-Layout';
 import Dashboard from '../Pages/dash-board';
 import GenerateOrder from '../Pages/orders/Generate-Order';
 import OrderHistory from '../Pages/orders/Order-History';
@@ -22,17 +22,17 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} /> */}
 
-<Route 
-        path="/" 
-        element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />} 
+      <Route
+        path="/"
+        element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />}
       />
-      <Route 
-        path="/login" 
-        element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />} 
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />}
       />
-      <Route 
-        path="/signup" 
-        element={isAuthenticated ? <Navigate to="/home" replace /> : <Signup />} 
+      <Route
+        path="/signup"
+        element={isAuthenticated ? <Navigate to="/home" replace /> : <Signup />}
       />
 
       <Route
@@ -48,49 +48,49 @@ const AppRoutes = () => {
         }
       />
 
- <Route
-  path="/add-product"
-  element={
-    <ProtectedRoute>
-    <AdminRoute>
-      <MainLayout>
-        <AddProduct />
-      </MainLayout>
-    </AdminRoute>
-    </ProtectedRoute>
-  }
-      />
-
-  
-      
       <Route
-  path="/restock"
-  element={
-    <ProtectedRoute>
-      <AdminRoute>
-      <MainLayout>
-        <RestockPage />
-        </MainLayout>
-       </AdminRoute>
-    </ProtectedRoute>
-  }
- />
+        path="/add-product"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <MainLayout>
+                <AddProduct />
+              </MainLayout>
+            </AdminRoute>
+          </ProtectedRoute>
+        }
+      />
 
 
-      
 
-<Route
-  path="/edit-product/:id"
-  element={
-    <ProtectedRoute>
-    <AdminRoute>
-      <MainLayout>
-        <EditProduct />
-        </MainLayout>
-        </AdminRoute>
-   
-    </ProtectedRoute>
-  }
+      <Route
+        path="/restock"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <MainLayout>
+                <RestockPage />
+              </MainLayout>
+            </AdminRoute>
+          </ProtectedRoute>
+        }
+      />
+
+
+
+
+      <Route
+        path="/edit-product/:id"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <MainLayout>
+                <EditProduct />
+              </MainLayout>
+            </AdminRoute>
+
+          </ProtectedRoute>
+        }
       />
 
 
@@ -102,10 +102,10 @@ const AppRoutes = () => {
 
 
 
-      
 
 
-    <Route
+
+      <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
