@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { orderhistory } from '../../common/constants';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 interface Order {
   _id: string;
@@ -23,7 +24,7 @@ const OrderHistory = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:8187/orders/getdata', {
+      const response = await fetch(API_ENDPOINTS.GET_ORDERS, {
         headers: {
           'Authorization': localStorage.getItem('token') || ''
         }
@@ -39,7 +40,7 @@ const OrderHistory = () => {
 
   const handleOrderStatus = async (orderId: string, status: 'completed' | 'rejected') => {
     try {
-      const response = await fetch(`http://localhost:8187/orders/${orderId}/status`, {
+      const response = await fetch(API_ENDPOINTS.UPDATE_ORDER_STATUS(orderId), {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

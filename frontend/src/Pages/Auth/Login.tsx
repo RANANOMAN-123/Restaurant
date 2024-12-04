@@ -4,6 +4,7 @@ import { login } from '../../common/constants';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { loginvalidationSchema } from '../../common/Validation-Schema';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 interface LoginForm {
   email: string;
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
     const { setSubmitting, setErrors } = formikHelpers;
 
     try {
-      const response = await fetch('http://localhost:8187/auth/login', {
+      const response = await fetch(API_ENDPOINTS.LOGIN, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

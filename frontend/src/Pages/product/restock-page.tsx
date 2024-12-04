@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { restock } from '../../common/constants';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 interface Product {
     _id: string;
@@ -19,7 +20,7 @@ const RestockPage = () => {
 
     const fetchZeroStockProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8187/products/zero-stock', {
+            const response = await fetch(API_ENDPOINTS.GET_ZERO_STOCK, {
                 headers: {
                     'Authorization': localStorage.getItem('token') || ''
                 }
