@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { API_ENDPOINTS } from '../../config/api.config';
+
 
 // Validation Schema
 const validationSchema = Yup.object({
