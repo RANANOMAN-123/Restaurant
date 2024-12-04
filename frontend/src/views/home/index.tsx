@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { homePage } from '../../common/constants';
 import { API_ENDPOINTS } from '../../config/api.config';
@@ -54,14 +54,14 @@ const HomePage = () => {
         }
     };
 
-    const refreshData = async () => {
+    const refreshData = useCallback(async () => {
         await fetchProducts();
         await fetchProductCounts();
-    };
+    },[]);
     //@typescript-eslint/no-unused-vars
     useEffect(() => {
         refreshData();
-    }, []);
+    }, [refreshData]);
 
     return (
         <div className="ml-64 min-h-screen bg-gray-100">
