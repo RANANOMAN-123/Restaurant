@@ -19,7 +19,7 @@ const RestockPage = () => {
 
     const fetchZeroStockProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8186/products/zero-stock', {
+            const response = await fetch('http://localhost:8187/products/zero-stock', {
                 headers: {
                     'Authorization': localStorage.getItem('token') || ''
                 }
@@ -35,7 +35,7 @@ const RestockPage = () => {
 
     const handleUpdateCount = async (productId: string, newCount: number) => {
         try {
-            const response = await fetch(`http://localhost:8186/products/${productId}/update-count`, {
+            const response = await fetch(`http://localhost:8187/products/${productId}/update-count`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../common/constants';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { loginvalidationSchema } from '../../common/validation-schema';
+import { loginvalidationSchema } from '../../common/Validation-Schema';
 
 interface LoginForm {
   email: string;
@@ -31,7 +31,7 @@ const Login: React.FC = () => {
     const { setSubmitting, setErrors } = formikHelpers;
 
     try {
-      const response = await fetch('http://localhost:8186/auth/login', {
+      const response = await fetch('http://localhost:8187/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

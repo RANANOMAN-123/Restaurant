@@ -32,7 +32,7 @@ const GenerateOrder = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8186/products/all', {
+      const response = await fetch('http://localhost:8187/products/all', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': localStorage.getItem('token') || ''
@@ -49,7 +49,7 @@ const GenerateOrder = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:8186/orders/order', {
+      const response = await fetch('http://localhost:8187/orders/order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

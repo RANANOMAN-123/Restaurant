@@ -9,7 +9,7 @@ const ProductRouter = require('./routes/product-router');
 require('dotenv').config();
 require('./models/db');
 
-const port = process.env.PORT || 8186;
+const port = process.env.PORT || 8187;
 
 app.use(bodyParser.json());
 app.use(cors());

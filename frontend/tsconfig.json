@@ -19,16 +19,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@pages/*": ["src/pages/*"],
-      "@routes/*": ["src/routes/*"],
-      "@common/*": ["src/common/*"],
-      "@layouts/*": ["src/components/Layout/*"]
+      "@/*": ["*"],
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@common/*": ["common/*"],
+      "@layouts/*": ["components/Layout/*"]
     }
   },
-  "include": [
-    "src"
-, "craco.config.js"  ]
+  "include": ["src"]
 }

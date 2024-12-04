@@ -35,7 +35,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:8186/products/products/${id}`, {
+                const response = await fetch(`http://localhost:8187/products/products/${id}`, {
                     headers: {
                         'Authorization': localStorage.getItem('token') || ''
                     }
@@ -77,7 +77,7 @@ const EditProduct = () => {
         { setSubmitting }: FormikHelpers<Product>
     ) => {
         try {
-            const response = await fetch(`http://localhost:8186/products/products/${id}`, {
+            const response = await fetch(`http://localhost:8187/products/products/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

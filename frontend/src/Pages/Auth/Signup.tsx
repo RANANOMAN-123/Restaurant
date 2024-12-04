@@ -29,7 +29,7 @@ const Signup: React.FC = () => {
     const { setSubmitting, setErrors } = formikHelpers;
 
     try {
-      const response = await fetch('http://localhost:8186/auth/signup', {
+      const response = await fetch('http://localhost:8187/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
