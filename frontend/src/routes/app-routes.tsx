@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import Login from '../views/auth/Login';
 import Signup from '../views/auth/Signup';
-import MainLayout from '../components/layout/Main-Layout';
+import MainLayout from '../components/layout/MainLayout';
 import Dashboard from '../views/dash-board';
 import GenerateOrder from '../views/orders/Generate-Order';
 import OrderHistory from '../views/orders/Order-History';
