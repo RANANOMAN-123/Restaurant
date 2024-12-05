@@ -11,18 +11,10 @@ require('./models/db');
 
 const port = process.env.PORT || 8187;
 
-app.use(cors({
-    origin: [
-        'http://localhost:3000',
-        'https://rastaurant-he5kf89qq-rananoman-123s-projects.vercel.app'  // Replace with your actual frontend domain
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+app.use(cors());
 app.use(bodyParser.json());
-// app.use(cors());
+
+// Routes
 app.use('/api/auth', AuthRouter);
 app.use('/api/orders', OrderRouter);
 app.use('/api/products', ProductRouter);

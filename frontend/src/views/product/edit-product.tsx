@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { API_ENDPOINTS } from '../../config/api.config';
 
-
-// Validation Schema
 const validationSchema = Yup.object({
     name: Yup.string().required('Product name is required'),
     imageUrl: Yup.string().required('Image URL is required').url('Must be a valid URL'),
@@ -36,7 +35,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:8187/products/products/${id}`, {
+                const response = await fetch(API_ENDPOINTS.GET_PRODUCT(id!), {
                     headers: {
                         'Authorization': localStorage.getItem('token') || ''
                     }
@@ -78,7 +77,7 @@ const EditProduct = () => {
         { setSubmitting }: FormikHelpers<Product>
     ) => {
         try {
-            const response = await fetch(`http://localhost:8187/products/products/${id}`, {
+            const response = await fetch(API_ENDPOINTS.UPDATE_PRODUCT(id!), {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

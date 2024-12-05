@@ -11,6 +11,7 @@ import {
   Legend
 } from 'chart.js';
 import { dashboard } from '../../common/constants';
+import { API_ENDPOINTS } from '../../config/api.config';
 
 ChartJS.register(
   CategoryScale,
@@ -38,7 +39,7 @@ const Dashboard = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch('http://localhost:8187/orders/getdata', {
+      const response = await fetch(API_ENDPOINTS.GET_ORDERS, {
         headers: {
           'Authorization': localStorage.getItem('token') || ''
         }
@@ -52,17 +53,17 @@ const Dashboard = () => {
     }
   };
 
-
   const completedOrders = orders.filter(order => order.status === 'completed');
 
-
   const ordersByDate = completedOrders.reduce((acc, order) => {
-    const date = new Date(order.date).toLocaleDateString();
+    const date = new Date(order.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
     acc[date] = (acc[date] || 0) + 1;
-
     return acc;
   }, {} as Record<string, number>);
-
 
   const sortedDates = Object.keys(ordersByDate).sort((a, b) =>
     new Date(a).getTime() - new Date(b).getTime()
