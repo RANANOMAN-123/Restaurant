@@ -8,6 +8,7 @@ interface Product {
     name: string;
     description: string;
     imageUrl: string;
+    price: number;
 }
 
 interface ProductCounts {
@@ -151,9 +152,12 @@ const HomePage = () => {
     <div className="p-4">
         <h3 className="text-lg font-bold text-gray-800 mb-2">{item.name}</h3>
         <p className="text-sm text-gray-500 mb-3 max-h-16 overflow-y-auto overflow-x-hidden">{item.description}</p>
-        <div className={`px-3 py-1.5 rounded-lg text-sm font-semibold mb-3 ${stock.color} ${stock.bg}`}>
-            {stock.label}
-        </div>
+       <div className={`px-3 py-1.5 rounded-lg text-sm font-semibold mb-3 ${stock.color} ${stock.bg}`}>
+          {stock.label}
+       </div>
+     <div className="px-3 py-1.5 rounded-lg text-sm font-bold text-orange-500 bg-orange-50 mb-3">
+        💰 PKR {item.price}
+     </div>
         {user.isAdmin && (
             <div className="flex gap-2">
                 <button

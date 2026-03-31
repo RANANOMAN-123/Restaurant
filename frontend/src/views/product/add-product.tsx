@@ -2,9 +2,8 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { addproduct } from '../../common/constants';
 import { API_ENDPOINTS } from '../../config/api.config';
-
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Product name is required'),
@@ -13,17 +12,21 @@ const validationSchema = Yup.object({
     availableCount: Yup.number()
         .required('Available count is required')
         .min(1, 'Must be at least 1')
-        .integer('Must be a whole number')
+        .integer('Must be a whole number'),
+    price: Yup.number()
+        .required('Price is required')
+        .min(1, 'Price must be at least 1')
 });
 
 const AddProduct = () => {
     const navigate = useNavigate();
 
-    const handleSubmit = async (values: { 
-        name: string; 
-        imageUrl: string; 
+    const handleSubmit = async (values: {
+        name: string;
+        imageUrl: string;
         description: string;
         availableCount: number;
+        price: number;
     }, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
         try {
             const response = await fetch(API_ENDPOINTS.ADD_PRODUCT, {
@@ -34,79 +37,101 @@ const AddProduct = () => {
                 },
                 body: JSON.stringify(values)
             });
-           
+
             if (response.ok) {
+                toast.success('Product added successfully!');
                 navigate('/home');
+            } else {
+                toast.error('Failed to add product!');
             }
         } catch (error) {
-            console.error('Failed to add product:', error);
+            toast.error('Something went wrong!');
         }
         setSubmitting(false);
     };
 
     return (
-        <div className="ml-64 p-8">
-            <h1 className="text-3xl font-bold mb-8">{ addproduct.newProduct}</h1>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="ml-64 p-8 bg-gray-100 min-h-screen">
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-800">Add New Product</h1>
+                <p className="text-gray-500 mt-1">Add a new item to the menu</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-md max-w-2xl">
                 <Formik
-                    initialValues={{ 
-                        name: '', 
-                        imageUrl: '', 
+                    initialValues={{
+                        name: '',
+                        imageUrl: '',
                         description: '',
-                        availableCount: 15 
+                        availableCount: 15,
+                        price: 0
                     }}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
                     {({ isSubmitting }) => (
-                        <Form className="space-y-4">
+                        <Form className="space-y-5">
                             <div>
-                                <label className="block mb-2">{addproduct.productName }</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Product Name</label>
                                 <Field
                                     type="text"
                                     name="name"
-                                    className="w-full p-2 border rounded"
+                                    placeholder="Enter product name"
+                                    className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
                                 />
-                                <ErrorMessage name="name" component="div" className="text-red-500" />
+                                <ErrorMessage name="name" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
- 
-                             <div>
-                                <label className="block mb-2">{addproduct.imageURL}</label>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Image URL</label>
                                 <Field
                                     type="text"
                                     name="imageUrl"
-                                    className="w-full p-2 border rounded"
+                                    placeholder="Enter image URL"
+                                    className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
                                 />
-                                <ErrorMessage name="imageUrl" component="div" className="text-red-500" />
+                                <ErrorMessage name="imageUrl" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
                             <div>
-                                <label className="block mb-2">{ addproduct.description}</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Description</label>
                                 <Field
                                     as="textarea"
                                     name="description"
-                                    className="w-full p-2 border rounded"
+                                    placeholder="Enter product description"
+                                    className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
                                     rows="4"
                                 />
-                                <ErrorMessage name="description" component="div" className="text-red-500" />
+                                <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                             </div>
 
-                            <div>
-                                <label className="block mb-2">{ addproduct.availableCount}</label>
-                                <Field
-                                    type="number"
-                                    name="availableCount"
-                                    className="w-full p-2 border rounded"
-                                />
-                                <ErrorMessage name="availableCount" component="div" className="text-red-500" />
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Available Count</label>
+                                    <Field
+                                        type="number"
+                                        name="availableCount"
+                                        className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
+                                    />
+                                    <ErrorMessage name="availableCount" component="div" className="text-red-500 text-sm mt-1" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">💰 Price (PKR)</label>
+                                    <Field
+                                        type="number"
+                                        name="price"
+                                        placeholder="Enter price"
+                                        className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
+                                    />
+                                    <ErrorMessage name="price" component="div" className="text-red-500 text-sm mt-1" />
+                                </div>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 font-semibold transition-all"
                             >
-                                {addproduct.addProduct1}
+                                {isSubmitting ? 'Adding...' : '+ Add Product'}
                             </button>
                         </Form>
                     )}

@@ -9,6 +9,7 @@ interface Order {
   status: string;
   date: string;
   userName?: string;
+  price?: number;
 }
 
 const OrderHistory = () => {
@@ -45,6 +46,71 @@ const OrderHistory = () => {
     } catch (error) {
       console.error('Failed to update order status:', error);
     }
+  };
+
+  const handlePrint = (order: Order) => {
+    const receiptContent = `
+        <html>
+        <head><title>Receipt</title>
+        <style>
+            body { font-family: Arial; padding: 40px; max-width: 500px; margin: 0 auto; }
+            .header { text-align: center; margin-bottom: 20px; }
+            .header h1 { font-size: 28px; font-weight: bold; margin: 8px 0; }
+            .header p { color: #666; font-size: 14px; }
+            .row { display: flex; justify-content: space-between; margin: 10px 0; font-size: 16px; }
+            .divider { border-top: 2px dashed #ccc; margin: 15px 0; }
+            .center { text-align: center; }
+            .receipt-title { text-align: center; font-size: 22px; font-weight: bold; margin-bottom: 16px; }
+            .section-title { font-weight: bold; font-size: 18px; margin-bottom: 12px; }
+            .total { font-size: 20px; font-weight: bold; }
+            .total-amount { color: #f97316; font-size: 20px; font-weight: bold; }
+            .status-wrap { text-align: center; margin: 20px 0; }
+            .status { padding: 8px 24px; border-radius: 20px; font-size: 16px; font-weight: bold; text-transform: uppercase; }
+            .footer { text-align: center; color: #999; margin-top: 20px; font-size: 14px; }
+        </style>
+        </head>
+        <body>
+            <div class="header">
+                <div style="font-size:60px">🍔</div>
+                <h1>Tasty Bites</h1>
+                <p>Restaurant System</p>
+            </div>
+            <div class="divider"></div>
+            <div class="receipt-title">ORDER RECEIPT</div>
+            <div class="row"><span style="color:#666">Order ID:</span><strong>#${order._id.slice(-8).toUpperCase()}</strong></div>
+            <div class="row"><span style="color:#666">Date:</span><span>${new Date(order.date).toLocaleDateString()}</span></div>
+            <div class="row"><span style="color:#666">Time:</span><span>${new Date(order.date).toLocaleTimeString()}</span></div>
+            ${order.userName ? `<div class="row"><span style="color:#666">Customer:</span><span>${order.userName}</span></div>` : ''}
+            <div class="divider"></div>
+            <div class="section-title">ORDER DETAILS</div>
+            <div class="row"><span style="color:#666">🍔 Product:</span><strong>${order.product}</strong></div>
+            <div class="row"><span style="color:#666">🥫 Sauce:</span><span>${order.sauce}</span></div>
+            <div class="row"><span style="color:#666">🥤 Drink:</span><span>${order.drink}</span></div>
+            <div class="divider"></div>
+            <div class="row"><span class="total">💰 Total Amount:</span><span class="total-amount">PKR ${order.price || 0}</span></div>
+            <div class="divider"></div>
+            <div class="status-wrap">
+                <p style="color:#666; margin-bottom:8px">Order Status</p>
+                <span class="status" style="
+                    background: ${order.status === 'completed' ? '#dcfce7' : order.status === 'rejected' ? '#fee2e2' : '#fef9c3'};
+                    color: ${order.status === 'completed' ? '#15803d' : order.status === 'rejected' ? '#b91c1c' : '#854d0e'};
+                ">${order.status}</span>
+            </div>
+            <div class="footer">
+                <p>Thank you for choosing Tasty Bites! 🍔</p>
+                <p>Visit us again!</p>
+            </div>
+        </body>
+        </html>
+    `;
+
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    iframe.contentDocument!.write(receiptContent);
+    iframe.contentDocument!.close();
+    iframe.contentWindow!.print();
+    setTimeout(() => document.body.removeChild(iframe), 1000);
   };
 
   const filteredOrders = orders
@@ -107,15 +173,24 @@ const OrderHistory = () => {
               <h3 className="font-bold text-gray-700">
                 Order #{order._id.slice(-8).toUpperCase()}
               </h3>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColor(order.status)}`}>
-                {order.status}
-              </span>
+              <div className="flex items-center gap-3">
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColor(order.status)}`}>
+                  {order.status}
+                </span>
+                <button
+                  onClick={() => handlePrint(order)}
+                  className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 text-sm font-medium transition-all"
+                >
+                  🖨️ Print
+                </button>
+              </div>
             </div>
-            <div className="mt-3 grid grid-cols-4 gap-4 text-sm text-gray-600">
+            <div className="mt-3 grid grid-cols-5 gap-4 text-sm text-gray-600">
               <p>🍔 <span className="font-medium">{order.product}</span></p>
               <p>🥫 {order.sauce}</p>
               <p>🥤 {order.drink}</p>
               <p>📅 {new Date(order.date).toLocaleDateString()}</p>
+              <p>💰 <span className="font-medium text-orange-500">PKR {order.price || 0}</span></p>
             </div>
             {user.isAdmin && order.userName && (
               <p className="mt-2 text-xs text-gray-400">👤 Ordered by: {order.userName}</p>

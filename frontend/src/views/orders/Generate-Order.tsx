@@ -8,6 +8,7 @@ interface Product {
   name: string;
   imageUrl: string;
   availableCount: number;
+  price: number;
 }
 
 const GenerateOrder = () => {
@@ -99,7 +100,7 @@ const GenerateOrder = () => {
                 <option value="">Select a product</option>
                 {products.map(product => (
                   <option key={product._id} value={product.name}>
-                    {product.name} (Available: {product.availableCount})
+                    {product.name} — PKR {product.price} (Available: {product.availableCount})
                   </option>
                 ))}
               </select>
@@ -173,6 +174,12 @@ const GenerateOrder = () => {
               <span className="text-gray-500">🥤 Drink</span>
               <span className="font-medium">{orderDetails.drink || '—'}</span>
             </div>
+            {selectedProduct && (
+              <div className="flex justify-between border-t pt-2 mt-2">
+                <span className="font-bold text-gray-700">💰 Total</span>
+                <span className="font-bold text-orange-500">PKR {selectedProduct.price}</span>
+              </div>
+            )}
           </div>
         </div>
 

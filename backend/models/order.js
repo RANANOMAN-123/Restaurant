@@ -19,6 +19,10 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
+    price: {
+        type: Number,
+        default: 0
+    },
     sauce: {
         type: String,
         required: true
@@ -30,7 +34,7 @@ const OrderSchema = new Schema({
     status: {
         type: String,
         enum: ['pending', 'completed', 'rejected'],
-        default: 'pendin'
+        default: 'pending'
     },
     date: {
         type: Date,

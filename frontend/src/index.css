@@ -3,5 +3,12 @@
 @tailwind utilities;
 
 
-
+@media print {
+  .sidebar-nav {
+    display: none !important;
+  }
+  .print-receipt {
+    display: block !important;
+  }
+}
 

@@ -13,7 +13,7 @@ const SideNav = () => {
     };
 
     return (
-        <div className="h-screen w-64 bg-gray-800 text-white fixed left-0 top-0 shadow-xl flex flex-col">
+        <div className="sidebar-nav h-screen w-64 bg-gray-800 text-white fixed left-0 top-0 shadow-xl flex flex-col">
             
             {/* Logo Section */}
             <div className="p-6 border-b border-gray-700">

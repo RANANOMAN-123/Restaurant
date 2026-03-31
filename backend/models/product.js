@@ -18,7 +18,12 @@ const ProductSchema = new Schema({
         type: Number,
         required: true,
         default: 15
-    }   
+    },
+    price: {
+        type: Number,
+        required: true,
+        default: 0
+    }
 });
 
 const ProductModel = mongoose.model('Product', ProductSchema);

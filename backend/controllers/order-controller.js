@@ -1,15 +1,20 @@
 const OrderModel = require('../models/order');
 const ProductModel = require('../models/product');
 
-// Create order
 const createOrder = async (req, res) => {
     try {
         const { id, product, sauce, drink } = req.body;
+
+        // Get price from product
+        const productData = await ProductModel.findOne({ name: product });
+        const price = productData ? productData.price : 0;
+
         const order = new OrderModel({
             id,
             userId: req.user.id,
             userName: req.user.email,
             product,
+            price,
             sauce,
             drink,
             status: 'pending',
@@ -29,7 +34,6 @@ const createOrder = async (req, res) => {
     }
 };
 
-// Get orders — Admin sees all, User sees own
 const getOrders = async (req, res) => {
     try {
         let orders;
@@ -50,7 +54,6 @@ const getOrders = async (req, res) => {
     }
 };
 
-// Update order status
 const updateOrderStatus = async (req, res) => {
     try {
         const { orderId } = req.params;
@@ -83,7 +86,6 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
-// Stock counts
 const getProductCounts = async (req, res) => {
     try {
         const products = await ProductModel.find();
