@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { API_ENDPOINTS } from '../../config/api.config';
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Product name is required'),
@@ -42,7 +43,7 @@ const EditProduct = () => {
                 });
 
                 if (response.status === 403) {
-                    alert('Unauthorized: Admin access required');
+                    toast.error('Unauthorized: Admin access required');
                     navigate('/home');
                     return;
                 }
@@ -56,7 +57,7 @@ const EditProduct = () => {
                         availableCount: data.product.availableCount
                     });
                 } else {
-                    alert('Failed to fetch product details');
+                    toast.error('Failed to fetch product details');
                     navigate('/home');
                 }
             } catch (error) {
@@ -87,16 +88,16 @@ const EditProduct = () => {
             });
 
             if (response.status === 403) {
-                alert('Unauthorized: Admin access required');
+                toast.error('Unauthorized: Admin access required');
                 navigate('/home');
                 return;
             }
 
             if (response.ok) {
-                alert('Product updated successfully!');
+                toast.success('Product updated successfully!');
                 navigate('/home');
             } else {
-                alert('Failed to update product.');
+                toast.error('Failed to update product.');
                 document.getElementById('name')?.focus();
             }
         } catch (error) {

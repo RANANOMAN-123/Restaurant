@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../../common/constants';
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
-
+import toast from 'react-hot-toast';
 import { loginvalidationSchema } from '../../common/Validation-Schema';
 import { API_ENDPOINTS } from '../../config/api.config';
 
@@ -55,12 +55,12 @@ const Login: React.FC = () => {
         const from = location.state?.from?.pathname || '/home';
         navigate(from, { replace: true });
       } else {
-        alert(data.message);
+        toast.error(data.message);
         setErrors({ email: data.message });
       }
     } catch (error) {
       // setErrors({ email: 'Login failed. Please try again.' });
-      alert('Bad request');
+      toast.error('Login failed. Please try again.');
     }
     setSubmitting(false);
   };
