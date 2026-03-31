@@ -145,7 +145,7 @@ const GenerateOrder = () => {
         </div>
 
         {/* Order Summary Preview */}
-        <div className="bg-white p-6 rounded-xl shadow-md w-72">
+        <div className="bg-white p-6 rounded-xl shadow-md w-80 shrink-0">
           <h2 className="text-lg font-bold text-gray-800 mb-4">Order Summary</h2>
 
           {selectedProduct ? (
@@ -177,6 +177,32 @@ const GenerateOrder = () => {
         </div>
 
       </div>
+
+      {/* Bottom Section - Quick Tips */}
+      <div className="mt-6 grid grid-cols-3 gap-4">
+        <div className="bg-white p-5 rounded-xl shadow-sm flex items-center gap-4">
+          <span className="text-4xl">🍔</span>
+          <div>
+            <h3 className="font-semibold text-gray-800">Fresh Ingredients</h3>
+            <p className="text-sm text-gray-500">All products made fresh daily</p>
+          </div>
+        </div>
+        <div className="bg-white p-5 rounded-xl shadow-sm flex items-center gap-4">
+          <span className="text-4xl">⚡</span>
+          <div>
+            <h3 className="font-semibold text-gray-800">Quick Service</h3>
+            <p className="text-sm text-gray-500">Orders prepared in minutes</p>
+          </div>
+        </div>
+        <div className="bg-white p-5 rounded-xl shadow-sm flex items-center gap-4">
+          <span className="text-4xl">⭐</span>
+          <div>
+            <h3 className="font-semibold text-gray-800">Top Quality</h3>
+            <p className="text-sm text-gray-500">Best restaurant in town</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };

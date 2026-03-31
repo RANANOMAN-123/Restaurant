@@ -6,6 +6,15 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    userName: {
+        type: String,
+        required: true
+    },
     product: {
         type: String,
         required: true

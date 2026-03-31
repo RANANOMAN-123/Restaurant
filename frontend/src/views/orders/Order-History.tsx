@@ -8,12 +8,14 @@ interface Order {
   drink: string;
   status: string;
   date: string;
+  userName?: string;
 }
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => { fetchOrders(); }, []);
 
@@ -61,7 +63,9 @@ const OrderHistory = () => {
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Order History</h1>
-        <p className="text-gray-500 mt-1">Track and manage all orders</p>
+        <p className="text-gray-500 mt-1">
+          {user.isAdmin ? 'Manage all orders' : 'Track your orders'}
+        </p>
       </div>
 
       {/* Search + Filter */}
@@ -113,7 +117,10 @@ const OrderHistory = () => {
               <p>🥤 {order.drink}</p>
               <p>📅 {new Date(order.date).toLocaleDateString()}</p>
             </div>
-            {order.status === 'pending' && (
+            {user.isAdmin && order.userName && (
+              <p className="mt-2 text-xs text-gray-400">👤 Ordered by: {order.userName}</p>
+            )}
+            {order.status === 'pending' && user.isAdmin && (
               <div className="mt-4 flex gap-3">
                 <button
                   onClick={() => handleOrderStatus(order._id, 'completed')}

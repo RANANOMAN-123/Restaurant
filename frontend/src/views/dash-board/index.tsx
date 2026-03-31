@@ -81,7 +81,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-4 gap-6 mb-8">
         <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-orange-500">
           <p className="text-gray-500 text-sm">Total Orders</p>
           <h2 className="text-4xl font-bold text-gray-800 mt-1">{orders.length}</h2>
@@ -101,7 +101,7 @@ const Dashboard = () => {
       </div>
 
       {/* Chart */}
-      <div className="bg-white p-6 rounded-xl shadow-md">
+      <div className="bg-white p-6 rounded-xl shadow-md w-full">
         <div className="h-[400px]">
           <Line data={orderData} options={options} />
         </div>

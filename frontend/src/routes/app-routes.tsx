@@ -12,6 +12,9 @@ import AddProduct from '../views/product/add-product';
 import RestockPage from '../views/product/restock-page';
 import AdminRoute from './admin-routes';
 import EditProduct from '../views/product/edit-product';
+import LandingPage from '../views/auth/Landing';
+import ProfilePage from '../views/profile/index';
+import UsersPage from '../views/users/index';
 
 
 const AppRoutes = () => {
@@ -24,7 +27,7 @@ const AppRoutes = () => {
 
       <Route
         path="/"
-        element={isAuthenticated ? <Navigate to="/home" replace /> : <Navigate to="/login" replace />}
+        element={isAuthenticated ? <Navigate to="/home" replace /> : <LandingPage />}
       />
       <Route
         path="/login"
@@ -33,6 +36,31 @@ const AppRoutes = () => {
       <Route
         path="/signup"
         element={isAuthenticated ? <Navigate to="/home" replace /> : <Signup />}
+      />
+
+      <Route
+    path="/profile"
+    element={
+        <ProtectedRoute>
+            <MainLayout>
+                <ProfilePage />
+            </MainLayout>
+        </ProtectedRoute>
+    }
+      />
+
+
+      <Route
+    path="/users"
+    element={
+        <ProtectedRoute>
+            <AdminRoute>
+                <MainLayout>
+                    <UsersPage />
+                </MainLayout>
+            </AdminRoute>
+        </ProtectedRoute>
+    }
       />
 
       <Route

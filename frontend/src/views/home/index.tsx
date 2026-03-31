@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_ENDPOINTS } from '../../config/api.config';
+import toast from 'react-hot-toast';
 
 interface Product {
     _id: string;
@@ -57,6 +58,25 @@ const HomePage = () => {
         setLoading(false);
     }, []);
 
+    const handleDelete = async (id: string) => {
+    if (!window.confirm('Are you sure you want to delete this product?')) return;
+    try {
+        const response = await fetch(API_ENDPOINTS.DELETE_PRODUCT(id), {
+            method: 'DELETE',
+            headers: { 'Authorization': localStorage.getItem('token') || '' }
+        });
+        const data = await response.json();
+        if (data.success) {
+            toast.success('Product deleted successfully!');
+            refreshData();
+        } else {
+            toast.error('Failed to delete product!');
+        }
+    } catch (error) {
+        toast.error('Failed to delete product!');
+    }
+};
+
     useEffect(() => {
         refreshData();
     }, [refreshData]);
@@ -109,43 +129,49 @@ const HomePage = () => {
                             const count = productCounts[item.name] || 0;
                             const stock = getStockInfo(count);
                             return (
-                                <div
-                                    key={item._id}
-                                    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
-                                >
-                                    {/* Image */}
-                                    <div className="h-48 overflow-hidden relative">
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={item.name}
-                                            className="w-full h-full object-cover"
-                                        />
-                                        {count < 5 && (
-                                            <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
-                                                {count === 0 ? 'Out of Stock' : 'Low Stock'}
-                                            </div>
-                                        )}
-                                    </div>
+                              <div
+    key={item._id}
+    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+>
+    {/* Image */}
+    <div className="h-48 overflow-hidden relative">
+        <img
+            src={item.imageUrl}
+            alt={item.name}
+            className="w-full h-full object-cover"
+        />
+        {count < 5 && (
+            <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                {count === 0 ? 'Out of Stock' : 'Low Stock'}
+            </div>
+        )}
+    </div>
 
-                                    {/* Content */}
-                                    <div className="p-4">
-                                        <h3 className="text-lg font-bold text-gray-800 mb-2">{item.name}</h3>
-                                        <p className="text-sm text-gray-500 mb-3 max-h-16 overflow-y-auto overflow-x-hidden">{item.description}</p>
-                                        <div className={`px-3 py-1.5 rounded-lg text-sm font-semibold mb-3 ${stock.color} ${stock.bg}`}>
-                                            {stock.label}
-                                        </div>
-                                        {user.isAdmin && (
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => navigate(`/edit-product/${item._id}`)}
-                                                    className="flex-1 bg-blue-500 text-white px-2 py-1.5 rounded-lg hover:bg-blue-600 text-xs font-medium"
-                                                >
-                                                    ✏️ Edit
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+    {/* Content */}
+    <div className="p-4">
+        <h3 className="text-lg font-bold text-gray-800 mb-2">{item.name}</h3>
+        <p className="text-sm text-gray-500 mb-3 max-h-16 overflow-y-auto overflow-x-hidden">{item.description}</p>
+        <div className={`px-3 py-1.5 rounded-lg text-sm font-semibold mb-3 ${stock.color} ${stock.bg}`}>
+            {stock.label}
+        </div>
+        {user.isAdmin && (
+            <div className="flex gap-2">
+                <button
+                    onClick={() => navigate(`/edit-product/${item._id}`)}
+                    className="flex-1 bg-blue-500 text-white px-2 py-1.5 rounded-lg hover:bg-blue-600 text-xs font-medium"
+                >
+                    ✏️ Edit
+                </button>
+                <button
+                    onClick={() => handleDelete(item._id)}
+                    className="flex-1 bg-red-500 text-white px-2 py-1.5 rounded-lg hover:bg-red-600 text-xs font-medium"
+                >
+                    🗑️ Delete
+                </button>
+            </div>
+        )}
+    </div>
+</div>
                             );
                         })}
                     </div>
