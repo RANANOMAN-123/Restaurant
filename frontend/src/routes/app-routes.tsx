@@ -15,7 +15,7 @@ import EditProduct from '../views/product/edit-product';
 import LandingPage from '../views/auth/Landing';
 import ProfilePage from '../views/profile/index';
 import UsersPage from '../views/users/index';
-
+import SettingsPage from '../views/settings/index';
 
 const AppRoutes = () => {
   const isAuthenticated = localStorage.getItem('token');
@@ -75,6 +75,19 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+      <Route
+    path="/settings"
+    element={
+        <ProtectedRoute>
+            <AdminRoute>
+                <MainLayout>
+                    <SettingsPage />
+                </MainLayout>
+            </AdminRoute>
+        </ProtectedRoute>
+    }
+/>
 
       <Route
         path="/add-product"

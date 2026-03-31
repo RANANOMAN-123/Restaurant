@@ -16,4 +16,10 @@ export const API_ENDPOINTS = {
   GET_ALL_USERS: `${API_BASE_URL}/api/auth/users`,
   DELETE_USER: (id: string) => `${API_BASE_URL}/api/auth/users/${id}`,
   MAKE_ADMIN: (id: string) => `${API_BASE_URL}/api/auth/users/${id}/make-admin`,
+  GET_SAUCES: `${API_BASE_URL}/api/settings/sauces`,
+ADD_SAUCE: `${API_BASE_URL}/api/settings/sauces`,
+DELETE_SAUCE: (id: string) => `${API_BASE_URL}/api/settings/sauces/${id}`,
+GET_DRINKS: `${API_BASE_URL}/api/settings/drinks`,
+ADD_DRINK: `${API_BASE_URL}/api/settings/drinks`,
+DELETE_DRINK: (id: string) => `${API_BASE_URL}/api/settings/drinks/${id}`,
 };

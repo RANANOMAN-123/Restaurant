@@ -5,6 +5,7 @@ const cors = require('cors');
 const AuthRouter = require('./routes/auth-router');
 const OrderRouter = require('./routes/order-router');
 const ProductRouter = require('./routes/product-router');
+const SauceDrinkRouter = require('./routes/sauce-drink-router');
 
 require('dotenv').config();
 require('./models/db');
@@ -13,6 +14,7 @@ const port = process.env.PORT || 8187;
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/api/settings', SauceDrinkRouter);
 
 // Routes
 app.use('/api/auth', AuthRouter);

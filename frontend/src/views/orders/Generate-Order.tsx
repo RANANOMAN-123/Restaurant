@@ -11,16 +11,24 @@ interface Product {
   price: number;
 }
 
+interface Item {
+  _id: string;
+  name: string;
+}
+
 const GenerateOrder = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
+  const [sauces, setSauces] = useState<Item[]>([]);
+  const [drinks, setDrinks] = useState<Item[]>([]);
   const [orderDetails, setOrderDetails] = useState({ product: '', sauce: '', drink: '' });
   const [submitted, setSubmitted] = useState(false);
 
-  const sauces = ['Ketchup', 'Mayonnaise', 'Barbecue Sauce', 'Cheese', 'Garlic Sauce'];
-  const drinks = ['Next Cola', 'Gourmet drink', '7UP', 'Fanta', 'Mountain Dew'];
-
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => {
+    fetchProducts();
+    fetchSauces();
+    fetchDrinks();
+  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -34,6 +42,30 @@ const GenerateOrder = () => {
       if (data.success) setProducts(data.products);
     } catch (error) {
       console.error('Failed to fetch products:', error);
+    }
+  };
+
+  const fetchSauces = async () => {
+    try {
+      const res = await fetch(API_ENDPOINTS.GET_SAUCES, {
+        headers: { 'Authorization': localStorage.getItem('token') || '' }
+      });
+      const data = await res.json();
+      if (data.success) setSauces(data.sauces);
+    } catch (err) {
+      console.error('Failed to fetch sauces');
+    }
+  };
+
+  const fetchDrinks = async () => {
+    try {
+      const res = await fetch(API_ENDPOINTS.GET_DRINKS, {
+        headers: { 'Authorization': localStorage.getItem('token') || '' }
+      });
+      const data = await res.json();
+      if (data.success) setDrinks(data.drinks);
+    } catch (err) {
+      console.error('Failed to fetch drinks');
     }
   };
 
@@ -116,7 +148,7 @@ const GenerateOrder = () => {
               >
                 <option value="">Select a sauce</option>
                 {sauces.map(sauce => (
-                  <option key={sauce} value={sauce}>{sauce}</option>
+                  <option key={sauce._id} value={sauce.name}>{sauce.name}</option>
                 ))}
               </select>
             </div>
@@ -131,7 +163,7 @@ const GenerateOrder = () => {
               >
                 <option value="">Select a drink</option>
                 {drinks.map(drink => (
-                  <option key={drink} value={drink}>{drink}</option>
+                  <option key={drink._id} value={drink.name}>{drink.name}</option>
                 ))}
               </select>
             </div>

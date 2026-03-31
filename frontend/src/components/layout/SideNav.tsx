@@ -74,6 +74,15 @@ const SideNav = () => {
                     </NavLink>
                 )}
 
+                {user.isAdmin && (
+    <NavLink to="/settings" className={({ isActive }) =>
+        `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-700'}`
+    }>
+        <span className="text-xl">⚙️</span>
+        <span>Settings</span>
+    </NavLink>
+)}
+
                 <NavLink to="/profile" className={({ isActive }) =>
                     `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-700'}`
                 }>
