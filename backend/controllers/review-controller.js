@@ -8,10 +8,8 @@ const addReview = async (req, res) => {
         }
 
         // Check if already reviewed
-        const existing = await Review.findOne({ orderId, userId: req.user.id });
-        if (existing) {
-            return res.status(409).json({ success: false, message: 'You already reviewed this order!' });
-        }
+      const existing = await Review.findOne({ orderId, userId: req.user.id });
+
 
         const review = new Review({
             userId: req.user.id,
@@ -63,7 +61,20 @@ const deleteReview = async (req, res) => {
 const checkReviewed = async (req, res) => {
     try {
         const { orderId } = req.params;
-        const review = await Review.findOne({ orderId, userId: req.user.id });
+        
+        // Find the order to get productName
+        const OrderModel = require('../models/order');
+        const order = await OrderModel.findById(orderId);
+        
+        if (!order) {
+            return res.status(200).json({ success: true, reviewed: false });
+        }
+
+        // Check by productName + userId
+        const review = await Review.findOne({ 
+            productName: order.product, 
+            userId: req.user.id 
+        });
         res.status(200).json({ success: true, reviewed: !!review });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Failed to check review' });

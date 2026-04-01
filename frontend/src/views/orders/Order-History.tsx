@@ -47,8 +47,32 @@ const OrderHistory = () => {
   const [reviewedOrders, setReviewedOrders] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchOrders(); }, []);
+
+  // ✅ checkReviewedOrders defined BEFORE fetchOrders
+  const checkReviewedOrders = async (orders: Order[]) => {
+      const completedOrders = orders.filter(o => o.status === 'completed');
+      const reviewed: string[] = [];
+      const reviewedProducts: string[] = [];
+
+      for (const order of completedOrders) {
+          try {
+              const res = await fetch(API_ENDPOINTS.CHECK_REVIEWED(order._id), {
+                  headers: { 'Authorization': localStorage.getItem('token') || '' }
+              });
+              const data = await res.json();
+              if (data.reviewed) {
+                  reviewed.push(order._id);
+                  reviewedProducts.push(order.product);
+              }
+              if (reviewedProducts.includes(order.product)) {
+                  reviewed.push(order._id);
+              }
+          } catch (err) {}
+      }
+      setReviewedOrders(Array.from(new Set(reviewed)));
+  };
 
   const fetchOrders = async () => {
     try {
@@ -63,21 +87,6 @@ const OrderHistory = () => {
     } catch (error) {
       console.error('Failed to fetch orders:', error);
     }
-  };
-
-  const checkReviewedOrders = async (orders: Order[]) => {
-      const completedOrders = orders.filter(o => o.status === 'completed');
-      const reviewed: string[] = [];
-      for (const order of completedOrders) {
-          try {
-              const res = await fetch(API_ENDPOINTS.CHECK_REVIEWED(order._id), {
-                  headers: { 'Authorization': localStorage.getItem('token') || '' }
-              });
-              const data = await res.json();
-              if (data.reviewed) reviewed.push(order._id);
-          } catch (err) {}
-      }
-      setReviewedOrders(reviewed);
   };
 
   const handleOrderStatus = async (orderId: string, status: 'completed' | 'rejected') => {
@@ -154,8 +163,8 @@ const OrderHistory = () => {
             ${order.userName ? `<div class="row"><span>Customer:</span><span>${order.userName}</span></div>` : ''}
             <div class="divider"></div>
             <div class="row"><span>🍔 Product:</span><strong>${order.product}</strong></div>
-            <div class="row"><span>🥫 Sauce:</span><span>${order.sauce}</span></div>
-            <div class="row"><span>🥤 Drink:</span><span>${order.drink}</span></div>
+            <div class="row"><span>🥫 Sauce:</span><span>${order.sauce || 'None'}</span></div>
+            <div class="row"><span>🥤 Drink:</span><span>${order.drink || 'None'}</span></div>
             <div class="divider"></div>
             <div class="row"><strong>💰 Total:</strong><strong style="color:#f97316">PKR ${order.price || 0}</strong></div>
             <div class="divider"></div>
@@ -285,7 +294,6 @@ const OrderHistory = () => {
                 >
                   🖨️ Print
                 </button>
-                {/* Rate Button — only for completed orders by user */}
                 {order.status === 'completed' && !user.isAdmin && (
                     reviewedOrders.includes(order._id) ? (
                         <span className="px-3 py-1.5 bg-green-100 text-green-600 rounded-lg text-sm font-medium">
@@ -304,8 +312,8 @@ const OrderHistory = () => {
             </div>
             <div className="mt-3 grid grid-cols-5 gap-4 text-sm text-gray-600">
               <p>🍔 <span className="font-medium">{order.product}</span></p>
-              <p>🥫 {order.sauce}</p>
-              <p>🥤 {order.drink}</p>
+              <p>🥫 {order.sauce || 'None'}</p>
+              <p>🥤 {order.drink || 'None'}</p>
               <p>📅 {new Date(order.date).toLocaleDateString()}</p>
               <p>💰 <span className="font-medium text-orange-500">PKR {order.price || 0}</span></p>
             </div>

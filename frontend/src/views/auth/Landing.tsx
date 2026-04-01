@@ -69,19 +69,19 @@ const LandingPage = () => {
       <div className="bg-white py-12 px-8 shadow-md">
         <div className="max-w-6xl mx-auto grid grid-cols-4 gap-8 text-center">
           <div>
-            <h3 className="text-4xl font-bold text-orange-500">500+</h3>
+            <h3 className="text-4xl font-bold text-orange-500">50+</h3>
             <p className="text-gray-500 mt-1">Happy Customers</p>
           </div>
           <div>
-            <h3 className="text-4xl font-bold text-orange-500">50+</h3>
+            <h3 className="text-4xl font-bold text-orange-500">5+</h3>
             <p className="text-gray-500 mt-1">Menu Items</p>
           </div>
           <div>
-            <h3 className="text-4xl font-bold text-orange-500">10+</h3>
+            <h3 className="text-4xl font-bold text-orange-500">1+</h3>
             <p className="text-gray-500 mt-1">Years Experience</p>
           </div>
           <div>
-            <h3 className="text-4xl font-bold text-orange-500">4.9⭐</h3>
+            <h3 className="text-4xl font-bold text-orange-500">4⭐</h3>
             <p className="text-gray-500 mt-1">Average Rating</p>
           </div>
         </div>

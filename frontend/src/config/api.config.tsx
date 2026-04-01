@@ -37,4 +37,6 @@ GET_PRODUCT_REVIEWS: (productName: string) => `${API_BASE_URL}/api/reviews/produ
 GET_ALL_REVIEWS: `${API_BASE_URL}/api/reviews/all`,
 DELETE_REVIEW: (id: string) => `${API_BASE_URL}/api/reviews/${id}`,
 CHECK_REVIEWED: (orderId: string) => `${API_BASE_URL}/api/reviews/check/${orderId}`,
+UPDATE_NAME: `${API_BASE_URL}/api/auth/update-name`,
+CHANGE_PASSWORD: `${API_BASE_URL}/api/auth/change-password`,
 };

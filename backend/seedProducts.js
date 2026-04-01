@@ -6,27 +6,37 @@ const products = [
     {
         name: 'Pizza',
         imageUrl: 'https://images.unsplash.com/photo-1513104890138-7c749659a591',
-        description: 'Delicious handcrafted pizza with fresh toppings'
+        description: 'Delicious handcrafted pizza with fresh toppings',
+        availableCount: 15,
+        price: 500
     },
     {
         name: 'Burger',
         imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd',
-        description: 'Juicy burger with premium ingredients'
+        description: 'Juicy burger with premium ingredients',
+        availableCount: 15,
+        price: 400
     },
     {
         name: 'Sandwich',
         imageUrl: 'https://images.unsplash.com/photo-1529563021893-cc83c992d75d',
-        description: 'Fresh and healthy sandwiches made to order'
+        description: 'Fresh and healthy sandwiches made to order',
+        availableCount: 15,
+        price: 300
     },
     {
         name: 'Shawarma',
         imageUrl: 'https://images.unsplash.com/photo-1642783944285-b33b18ef6c3b',
-        description: 'Authentic Middle Eastern shawarma'
+        description: 'Authentic Middle Eastern shawarma',
+        availableCount: 15,
+        price: 450
     },
     {
         name: 'Pasta',
         imageUrl: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601',
-        description: 'Italian pasta with homemade sauce'
+        description: 'Italian pasta with homemade sauce',
+        availableCount: 15,
+        price: 350
     }
 ];
 
@@ -35,7 +45,7 @@ mongoose.connect(process.env.MONGO_CONN)
         console.log('Connected to MongoDB');
         await ProductModel.deleteMany({});
         await ProductModel.insertMany(products);
-        console.log('Products seeded successfully');
+        console.log('Products seeded successfully with prices!');
         process.exit(0);
     })
     .catch(err => {

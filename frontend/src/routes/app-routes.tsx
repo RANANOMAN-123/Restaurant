@@ -22,6 +22,7 @@ import MessagesPage from '../views/messages/index';
 import ReviewsPage from '../views/reviews/index';
 
 
+
 const AppRoutes = () => {
   const isAuthenticated = localStorage.getItem('token');
   return (
@@ -30,10 +31,11 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} /> */}
 
-      <Route
-        path="/"
-        element={isAuthenticated ? <Navigate to="/home" replace /> : <LandingPage />}
-      />
+      <Route path="/" element={
+         localStorage.getItem('token') 
+          ? <Navigate to="/home" /> 
+          : <LandingPage />
+         } />
       <Route
         path="/login"
         element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />}

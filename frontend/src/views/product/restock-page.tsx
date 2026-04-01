@@ -36,8 +36,8 @@ const RestockPage = () => {
 
     const handleUpdateCount = async (productId: string, newCount: number) => {
         try {
-            const response = await fetch(`http://localhost:8187/products/${productId}/update-count`, {
-                method: 'PATCH',
+            const response = await fetch(API_ENDPOINTS.UPDATE_PRODUCT(productId), {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('token') || ''

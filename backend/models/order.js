@@ -25,11 +25,11 @@ const OrderSchema = new Schema({
     },
     sauce: {
         type: String,
-        required: true
+        default: ''
     },
     drink: {
         type: String,
-        required: true
+        default: ''
     },
     status: {
         type: String,

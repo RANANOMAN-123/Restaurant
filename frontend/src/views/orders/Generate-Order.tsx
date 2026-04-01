@@ -71,9 +71,9 @@ const GenerateOrder = () => {
 
   const selectedProduct = products.find(p => p.name === orderDetails.product);
 
-const handleSubmit = async () => {
-    if (!orderDetails.product || !orderDetails.sauce || !orderDetails.drink) {
-      toast.error('Please select all options!');
+  const handleSubmit = async () => {
+    if (!orderDetails.product) {
+      toast.error('Please select a product!');
       return;
     }
     try {
@@ -102,6 +102,7 @@ const handleSubmit = async () => {
       toast.error('Failed to place order!');
     }
   };
+
   return (
     <div className="ml-64 p-8 bg-gray-100 min-h-screen">
 
@@ -125,37 +126,41 @@ const handleSubmit = async () => {
 
             {/* Product */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">🍔 Select Product</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                🍔 Select Product <span className="text-red-500">*</span>
+              </label>
               <select
                 className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
                 value={orderDetails.product}
                 onChange={(e) => setOrderDetails({ ...orderDetails, product: e.target.value })}
               >
                 <option value="">Select a product</option>
-              {products.map(product => (
-                  <option 
-                     key={product._id} 
-                     value={product.name}
-                     disabled={product.availableCount === 0}
+                {products.map(product => (
+                  <option
+                    key={product._id}
+                    value={product.name}
+                    disabled={product.availableCount === 0}
                   >
-                     {product.availableCount === 0 
-                     ? `${product.name} — OUT OF STOCK` 
-                     : `${product.name} — PKR ${product.price} (Available: ${product.availableCount})`
-                     }
-                   </option>
-                    ))}
+                    {product.availableCount === 0
+                      ? `${product.name} — OUT OF STOCK`
+                      : `${product.name} — PKR ${product.price} (Available: ${product.availableCount})`
+                    }
+                  </option>
+                ))}
               </select>
             </div>
 
             {/* Sauce */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">🥫 Select Sauce</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                🥫 Select Sauce <span className="text-gray-400 font-normal">(Optional)</span>
+              </label>
               <select
                 className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
                 value={orderDetails.sauce}
                 onChange={(e) => setOrderDetails({ ...orderDetails, sauce: e.target.value })}
               >
-                <option value="">Select a sauce</option>
+                <option value="None">Select a sauce</option>
                 {sauces.map(sauce => (
                   <option key={sauce._id} value={sauce.name}>{sauce.name}</option>
                 ))}
@@ -164,13 +169,15 @@ const handleSubmit = async () => {
 
             {/* Drink */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">🥤 Select Drink</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                🥤 Select Drink <span className="text-gray-400 font-normal">(Optional)</span>
+              </label>
               <select
                 className="w-full p-3 border rounded-lg focus:outline-none focus:border-orange-400"
                 value={orderDetails.drink}
                 onChange={(e) => setOrderDetails({ ...orderDetails, drink: e.target.value })}
               >
-                <option value="">Select a drink</option>
+                <option value="None">Select a drink</option>
                 {drinks.map(drink => (
                   <option key={drink._id} value={drink.name}>{drink.name}</option>
                 ))}

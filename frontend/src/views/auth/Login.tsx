@@ -107,7 +107,7 @@ const Login: React.FC = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#718096] hover:text-[#4299e1] focus:outline-none"
                 >
-                  {showPassword ? 'Hide' : 'Show'}
+                  {showPassword ? '🙈' : '👁️'}
                 </button>
                 <ErrorMessage
                   name="password"
@@ -128,7 +128,7 @@ const Login: React.FC = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#718096] hover:text-[#4299e1] focus:outline-none"
                 >
-                  {showPassword ? 'Hide' : 'Show'}
+                  {showPassword ? '🙈' : '👁️'}
                 </button>
                 <ErrorMessage
                   name="confirmPassword"

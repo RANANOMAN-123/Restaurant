@@ -18,11 +18,13 @@ const getAllProducts = async (req, res) => {
 
 const addProduct = async (req, res) => {
     try {
-        const { name, description, imageUrl } = req.body;
+        const { name, description, imageUrl, price, availableCount } = req.body;
         const product = new ProductModel({
             name,
             description,
-            imageUrl
+            imageUrl,
+            price: price || 0,
+            availableCount: availableCount || 15
         });
         await product.save();
         res.status(201).json({
@@ -48,12 +50,12 @@ const addProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
     try {
         const { id } = req.params; 
-        const { name, description, imageUrl, availableCount } = req.body; // Data to update
+        const { name, description, imageUrl, availableCount, price } = req.body; // Data to update
 
         // Find product by ID and update with the new data
         const product = await ProductModel.findByIdAndUpdate(
             id, 
-            { name, description, imageUrl, availableCount }, 
+            { name, description, imageUrl, availableCount, price }, 
             { new: true } // Returns the updated document
         );
 

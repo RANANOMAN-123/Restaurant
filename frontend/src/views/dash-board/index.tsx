@@ -23,6 +23,7 @@ interface Order {
 
 const Dashboard = () => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => { fetchOrders(); }, []);
 
@@ -73,11 +74,13 @@ const Dashboard = () => {
 
   return (
     <div className="ml-64 p-8 bg-gray-100 min-h-screen">
-      
+
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
-        <p className="text-gray-500 mt-1">Overview of your restaurant performance</p>
+        <p className="text-gray-500 mt-1">
+          {user.isAdmin ? 'Overview of restaurant performance' : 'Overview of your orders'}
+        </p>
       </div>
 
       {/* Stat Cards */}
