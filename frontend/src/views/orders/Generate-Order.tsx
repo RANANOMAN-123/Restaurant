@@ -71,7 +71,7 @@ const GenerateOrder = () => {
 
   const selectedProduct = products.find(p => p.name === orderDetails.product);
 
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
     if (!orderDetails.product || !orderDetails.sauce || !orderDetails.drink) {
       toast.error('Please select all options!');
       return;
@@ -94,12 +94,14 @@ const GenerateOrder = () => {
       if (data.success) {
         setSubmitted(true);
         setTimeout(() => navigate('/order-history'), 1500);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       console.error('Failed to place order:', error);
+      toast.error('Failed to place order!');
     }
   };
-
   return (
     <div className="ml-64 p-8 bg-gray-100 min-h-screen">
 
@@ -130,11 +132,18 @@ const GenerateOrder = () => {
                 onChange={(e) => setOrderDetails({ ...orderDetails, product: e.target.value })}
               >
                 <option value="">Select a product</option>
-                {products.map(product => (
-                  <option key={product._id} value={product.name}>
-                    {product.name} — PKR {product.price} (Available: {product.availableCount})
-                  </option>
-                ))}
+              {products.map(product => (
+                  <option 
+                     key={product._id} 
+                     value={product.name}
+                     disabled={product.availableCount === 0}
+                  >
+                     {product.availableCount === 0 
+                     ? `${product.name} — OUT OF STOCK` 
+                     : `${product.name} — PKR ${product.price} (Available: ${product.availableCount})`
+                     }
+                   </option>
+                    ))}
               </select>
             </div>
 

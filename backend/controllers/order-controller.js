@@ -5,9 +5,18 @@ const createOrder = async (req, res) => {
     try {
         const { id, product, sauce, drink } = req.body;
 
-        // Get price from product
+        // Check stock
         const productData = await ProductModel.findOne({ name: product });
-        const price = productData ? productData.price : 0;
+        
+        if (!productData) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
+
+        if (productData.availableCount === 0) {
+            return res.status(400).json({ success: false, message: 'Product is out of stock!' });
+        }
+
+        const price = productData.price || 0;
 
         const order = new OrderModel({
             id,
@@ -105,9 +114,83 @@ const getProductCounts = async (req, res) => {
     }
 };
 
+
+
+const getReports = async (req, res) => {
+    try {
+        const orders = await OrderModel.find();
+
+        // Total stats
+        const totalOrders = orders.length;
+        const completedOrders = orders.filter(o => o.status === 'completed');
+        const pendingOrders = orders.filter(o => o.status === 'pending');
+        const rejectedOrders = orders.filter(o => o.status === 'rejected');
+
+        // Total revenue
+        const totalRevenue = completedOrders.reduce((sum, o) => sum + (o.price || 0), 0);
+
+        // Best selling products
+        const productSales = {};
+        completedOrders.forEach(order => {
+            if (productSales[order.product]) {
+                productSales[order.product]++;
+            } else {
+                productSales[order.product] = 1;
+            }
+        });
+        const bestSelling = Object.entries(productSales)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count);
+
+        // Monthly revenue
+        const monthlyRevenue = {};
+        completedOrders.forEach(order => {
+            const month = new Date(order.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+            monthlyRevenue[month] = (monthlyRevenue[month] || 0) + (order.price || 0);
+        });
+
+        // Popular sauces
+        const sauceSales = {};
+        completedOrders.forEach(order => {
+            sauceSales[order.sauce] = (sauceSales[order.sauce] || 0) + 1;
+        });
+        const popularSauces = Object.entries(sauceSales)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count);
+
+        // Popular drinks
+        const drinkSales = {};
+        completedOrders.forEach(order => {
+            drinkSales[order.drink] = (drinkSales[order.drink] || 0) + 1;
+        });
+        const popularDrinks = Object.entries(drinkSales)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count);
+
+        res.status(200).json({
+            success: true,
+            reports: {
+                totalOrders,
+                completedOrders: completedOrders.length,
+                pendingOrders: pendingOrders.length,
+                rejectedOrders: rejectedOrders.length,
+                totalRevenue,
+                bestSelling,
+                monthlyRevenue,
+                popularSauces,
+                popularDrinks
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to fetch reports' });
+    }
+};
+
+
 module.exports = {
     createOrder,
     getOrders,
     updateOrderStatus,
-    getProductCounts
+    getProductCounts,
+    getReports
 };

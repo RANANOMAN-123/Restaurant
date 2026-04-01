@@ -16,6 +16,10 @@ import LandingPage from '../views/auth/Landing';
 import ProfilePage from '../views/profile/index';
 import UsersPage from '../views/users/index';
 import SettingsPage from '../views/settings/index';
+import ReportsPage from '../views/reports/index';
+import ContactPage from '../views/contact/index';
+import MessagesPage from '../views/messages/index';
+
 
 const AppRoutes = () => {
   const isAuthenticated = localStorage.getItem('token');
@@ -103,6 +107,31 @@ const AppRoutes = () => {
       />
 
 
+      <Route
+        path="/contact"
+        element={
+          <ProtectedRoute>
+            <MainLayout>
+                <ContactPage />
+            </MainLayout>
+          </ProtectedRoute>
+       }
+      />
+
+      <Route
+        path="/messages"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+                <MainLayout>
+                    <MessagesPage />
+                </MainLayout>
+            </AdminRoute>
+          </ProtectedRoute>
+       }
+      />
+
+
 
       <Route
         path="/restock"
@@ -134,19 +163,24 @@ const AppRoutes = () => {
         }
       />
 
-
-
-
-
-
-
-
-
-
-
-
-
       <Route
+    path="/reports"
+    element={
+        <ProtectedRoute>
+            <AdminRoute>
+                <MainLayout>
+                    <ReportsPage />
+                </MainLayout>
+            </AdminRoute>
+        </ProtectedRoute>
+    }
+/>
+
+
+
+
+
+       <Route
         path="/dashboard"
         element={
           <ProtectedRoute>
