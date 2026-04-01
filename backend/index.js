@@ -7,6 +7,8 @@ const OrderRouter = require('./routes/order-router');
 const ProductRouter = require('./routes/product-router');
 const SauceDrinkRouter = require('./routes/sauce-drink-router');
 const MessageRouter = require('./routes/message-router');
+const ReviewRouter = require('./routes/review-router');
+
 
 require('dotenv').config();
 require('./models/db');
@@ -18,6 +20,7 @@ app.use(bodyParser.json());
 app.use('/api/settings', SauceDrinkRouter);
 
 // Routes
+app.use('/api/reviews', ReviewRouter);
 app.use('/api/auth', AuthRouter);
 app.use('/api/orders', OrderRouter);
 app.use('/api/products', ProductRouter);

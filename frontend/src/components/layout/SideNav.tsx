@@ -149,6 +149,15 @@ const SideNav = () => {
                 )}
 
                 {user.isAdmin && (
+                    <NavLink to="/reviews" className={({ isActive }) =>
+                        `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-700'}`
+                    }>
+                       <span className="text-xl">⭐</span>
+                      <span>Reviews</span>
+                  </NavLink>
+                )}
+
+                {user.isAdmin && (
                     <NavLink to="/reports" className={({ isActive }) =>
                         `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-orange-500 text-white' : 'hover:bg-gray-700'}`
                     }>

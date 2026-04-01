@@ -19,6 +19,7 @@ import SettingsPage from '../views/settings/index';
 import ReportsPage from '../views/reports/index';
 import ContactPage from '../views/contact/index';
 import MessagesPage from '../views/messages/index';
+import ReviewsPage from '../views/reviews/index';
 
 
 const AppRoutes = () => {
@@ -89,9 +90,9 @@ const AppRoutes = () => {
                     <SettingsPage />
                 </MainLayout>
             </AdminRoute>
-        </ProtectedRoute>
-    }
-/>
+         </ProtectedRoute>
+       }
+      />
 
       <Route
         path="/add-product"
@@ -105,6 +106,20 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+
+
+      <Route
+      path="/reviews"
+      element={
+        <ProtectedRoute>
+            <AdminRoute>
+                <MainLayout>
+                    <ReviewsPage />
+                </MainLayout>
+            </AdminRoute>
+        </ProtectedRoute>
+       }
+       />
 
 
       <Route
